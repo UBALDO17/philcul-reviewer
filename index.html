@@ -4,443 +4,442 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PH Regions Reviewer – Handout 03</title>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg:      #fafaf8;
-  --white:   #ffffff;
-  --ink:     #1a1a18;
-  --ink2:    #3d3d38;
-  --muted:   #888880;
-  --faint:   #e8e8e2;
-  --line:    #ebebE4;
+  --bg:     #f6f6f4;
+  --white:  #ffffff;
+  --ink:    #181816;
+  --ink2:   #404040;
+  --muted:  #888;
+  --line:   #e4e4e0;
+  --faint:  #efefeb;
 
-  --luzon:     #2563a8;
-  --luzon-bg:  #f0f5fc;
-  --luzon-bd:  #ccdaf5;
+  --luzon:      #1d5bb5;
+  --luzon-soft: #edf3fc;
+  --luzon-bd:   #c2d5f5;
 
-  --visayas:   #7c3aaa;
-  --visayas-bg:#f7f2fc;
-  --visayas-bd:#ddc8f5;
+  --visayas:      #6d28aa;
+  --visayas-soft: #f4eefb;
+  --visayas-bd:   #d8bcf5;
 
-  --mindanao:   #c0392b;
-  --mindanao-bg:#fdf2f1;
-  --mindanao-bd:#f5c8c4;
+  --mindanao:      #b52b1d;
+  --mindanao-soft: #fdf0ee;
+  --mindanao-bd:   #f0c4be;
 
-  --gold:    #b8860b;
-  --gold-bg: #fdf8ec;
-  --gold-bd: #ead99a;
+  --note-bg: #fefaed;
+  --note-bd: #e8d080;
+  --note-tx: #7a5c00;
 
-  --green:   #1a6b3a;
-  --sky:     #1a5fa8;
-  --coral:   #c0392b;
+  --tag-r: #c0392b;
+  --tag-b: #1a5fa8;
+  --tag-g: #1a6b3a;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   background: var(--bg);
   color: var(--ink);
-  min-height: 100vh;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
-/* ── HEADER ── */
+/* ─── HEADER ─── */
 header {
   background: var(--white);
-  border-bottom: 1.5px solid var(--line);
-  padding: 40px 44px 32px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
+  border-bottom: 1px solid var(--line);
+  padding: 24px 20px 20px;
 }
-
 .htag {
-  font-family: 'DM Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 3px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
-
 .htitle {
-  font-family: 'Lora', serif;
-  font-size: clamp(24px, 4vw, 42px);
+  font-size: clamp(20px, 5vw, 30px);
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.5px;
   color: var(--ink);
+  line-height: 1.15;
 }
-.htitle em {
-  font-style: italic;
-  color: var(--luzon);
-}
-
+.htitle em { font-style: normal; color: var(--luzon); }
 .hsub {
-  margin-top: 8px;
+  margin-top: 5px;
   font-size: 12px;
   color: var(--muted);
-  font-weight: 400;
-  letter-spacing: 0.5px;
 }
 
-.hbadge {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  border: 1.5px solid var(--ink);
-  color: var(--ink);
-  padding: 7px 16px;
-  border-radius: 3px;
-  align-self: flex-start;
-}
-
-/* ── NAV ── */
+/* ─── STICKY NAV ─── */
 .nav-bar {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(250,250,248,0.95);
-  backdrop-filter: blur(12px);
+  background: rgba(246,246,244,0.97);
+  backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
-  padding: 0 44px;
   display: flex;
-  align-items: center;
-  gap: 0;
   overflow-x: auto;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 .nav-bar::-webkit-scrollbar { display: none; }
 
 .nav-btn {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
   color: var(--muted);
   background: none;
   border: none;
-  border-bottom: 2px solid transparent;
-  padding: 13px 14px;
+  border-bottom: 2.5px solid transparent;
+  padding: 12px 16px;
   cursor: pointer;
-  transition: color .15s, border-color .15s;
   white-space: nowrap;
+  transition: color .15s, border-color .15s;
+  flex-shrink: 0;
 }
 .nav-btn:hover { color: var(--ink); }
-.nav-btn.active-all      { color: var(--ink);      border-bottom-color: var(--ink); }
-.nav-btn.active-luzon    { color: var(--luzon);    border-bottom-color: var(--luzon); }
-.nav-btn.active-visayas  { color: var(--visayas);  border-bottom-color: var(--visayas); }
-.nav-btn.active-mindanao { color: var(--mindanao); border-bottom-color: var(--mindanao); }
-.nav-sep { width: 1px; height: 16px; background: var(--line); margin: 0 6px; flex-shrink: 0; }
+.nav-btn.a-all      { color: var(--ink);      border-bottom-color: var(--ink); }
+.nav-btn.a-luzon    { color: var(--luzon);    border-bottom-color: var(--luzon); }
+.nav-btn.a-visayas  { color: var(--visayas);  border-bottom-color: var(--visayas); }
+.nav-btn.a-mindanao { color: var(--mindanao); border-bottom-color: var(--mindanao); }
+.nav-sep { width: 1px; background: var(--line); margin: 10px 2px; flex-shrink: 0; }
 
-/* ── SEARCH ── */
+/* ─── SEARCH ─── */
 .search-bar {
+  padding: 10px 16px;
   background: var(--white);
   border-bottom: 1px solid var(--line);
-  padding: 12px 44px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
 }
-.search-wrap { position: relative; flex: 1; max-width: 400px; }
+.search-wrap { position: relative; }
 .search-icon {
   position: absolute;
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--muted);
-  font-size: 15px;
+  font-size: 16px;
   pointer-events: none;
 }
 .search-input {
   width: 100%;
-  background: var(--bg);
-  border: 1.5px solid var(--line);
-  border-radius: 8px;
+  background: var(--faint);
+  border: 1.5px solid transparent;
+  border-radius: 10px;
   color: var(--ink);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  padding: 8px 14px 8px 36px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  padding: 10px 14px 10px 38px;
   outline: none;
-  transition: border-color .15s;
+  transition: border-color .15s, background .15s;
 }
-.search-input:focus { border-color: var(--luzon); }
+.search-input:focus {
+  background: var(--white);
+  border-color: var(--luzon);
+}
 .search-input::placeholder { color: var(--muted); }
 
-.legend {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-left: auto;
-}
-.li { display: flex; align-items: center; gap: 5px; }
-.ld { width: 7px; height: 7px; border-radius: 50%; }
-
-/* ── MAIN ── */
+/* ─── MAIN ─── */
 main {
-  padding: 28px 44px 80px;
-  max-width: 1240px;
+  padding: 16px 14px 80px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
-/* ── ISLAND DIVIDER ── */
-.island-group-header {
+/* ─── GROUP DIVIDER ─── */
+.grp-header {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin: 36px 0 16px;
-  opacity: 0;
-  animation: fadeUp .4s forwards;
+  gap: 10px;
+  margin: 28px 0 12px;
 }
-.island-group-header:first-of-type { margin-top: 0; }
-.igh-line { flex: 1; height: 1px; background: var(--line); }
-.igh-label {
-  font-family: 'DM Mono', monospace;
+.grp-header:first-child { margin-top: 0; }
+.grp-line { flex: 1; height: 1px; background: var(--line); }
+.grp-pill {
+  font-family: 'JetBrains Mono', monospace;
   font-size: 9.5px;
   font-weight: 500;
-  letter-spacing: 3.5px;
+  letter-spacing: 3px;
   text-transform: uppercase;
   padding: 4px 12px;
   border-radius: 20px;
   border: 1px solid;
 }
-.igh-label.luzon    { color: var(--luzon);    border-color: var(--luzon-bd);    background: var(--luzon-bg); }
-.igh-label.visayas  { color: var(--visayas);  border-color: var(--visayas-bd);  background: var(--visayas-bg); }
-.igh-label.mindanao { color: var(--mindanao); border-color: var(--mindanao-bd); background: var(--mindanao-bg); }
+.grp-pill.luzon    { color: var(--luzon);    border-color: var(--luzon-bd);    background: var(--luzon-soft); }
+.grp-pill.visayas  { color: var(--visayas);  border-color: var(--visayas-bd);  background: var(--visayas-soft); }
+.grp-pill.mindanao { color: var(--mindanao); border-color: var(--mindanao-bd); background: var(--mindanao-soft); }
 
-/* ── REGION CARD ── */
+/* ─── REGION CARD ─── */
 .rc {
   background: var(--white);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
-  margin-bottom: 14px;
-  transition: border-color .15s, box-shadow .15s, transform .15s;
-  opacity: 0;
-  animation: fadeUp .4s forwards;
+  margin-bottom: 10px;
+  transition: box-shadow .15s;
 }
-.rc:hover {
-  border-color: #d0d0c8;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-  transform: translateY(-1px);
-}
+.rc:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
 
-/* ── CARD HEADER ── */
+/* ─── CARD HEADER ─── */
 .rh {
-  padding: 12px 18px;
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 12px 14px;
   cursor: pointer;
   user-select: none;
-  border-bottom: 1px solid var(--line);
-  transition: background .15s;
+  border-bottom: 1px solid transparent;
+  transition: filter .1s;
 }
-.luzon-card    .rh { background: var(--luzon-bg); border-bottom-color: var(--luzon-bd); }
-.visayas-card  .rh { background: var(--visayas-bg); border-bottom-color: var(--visayas-bd); }
-.mindanao-card .rh { background: var(--mindanao-bg); border-bottom-color: var(--mindanao-bd); }
-.rc.collapsed  .rh { border-bottom: none; }
+.rh:active { filter: brightness(0.96); }
 
-.rh:hover { filter: brightness(0.975); }
+.luzon-card    .rh { background: var(--luzon-soft);    border-bottom-color: var(--luzon-bd); }
+.visayas-card  .rh { background: var(--visayas-soft);  border-bottom-color: var(--visayas-bd); }
+.mindanao-card .rh { background: var(--mindanao-soft); border-bottom-color: var(--mindanao-bd); }
+.rc.collapsed  .rh { border-bottom-color: transparent; }
 
 .rnum {
-  font-family: 'DM Mono', monospace;
-  font-size: 9.5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
   font-weight: 500;
-  letter-spacing: 1.5px;
-  padding: 3px 9px;
-  border-radius: 3px;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border-radius: 4px;
   white-space: nowrap;
   flex-shrink: 0;
   border: 1px solid;
 }
-.luzon-card    .rnum { color: var(--luzon);    background: rgba(37,99,168,0.08); border-color: var(--luzon-bd); }
-.visayas-card  .rnum { color: var(--visayas);  background: rgba(124,58,170,0.08); border-color: var(--visayas-bd); }
-.mindanao-card .rnum { color: var(--mindanao); background: rgba(192,57,43,0.08);  border-color: var(--mindanao-bd); }
+.luzon-card    .rnum { color: var(--luzon);    background: rgba(29,91,181,0.08);  border-color: var(--luzon-bd); }
+.visayas-card  .rnum { color: var(--visayas);  background: rgba(109,40,170,0.08); border-color: var(--visayas-bd); }
+.mindanao-card .rnum { color: var(--mindanao); background: rgba(181,43,29,0.08);  border-color: var(--mindanao-bd); }
 
 .rname {
-  font-size: 13.5px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 700;
   color: var(--ink);
-}
-.rtag {
-  margin-left: auto;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--muted);
-  opacity: 0.6;
-  white-space: nowrap;
+  flex: 1;
+  line-height: 1.3;
 }
 .chevron {
   font-size: 11px;
   color: var(--muted);
-  transition: transform .2s;
   flex-shrink: 0;
+  transition: transform .2s;
 }
 .rc.collapsed .chevron { transform: rotate(-90deg); }
 
-/* ── BODY ── */
+/* ─── CARD BODY ─── */
 .rb {
-  display: grid;
-  grid-template-columns: 1fr 1.7fr;
-  max-height: 2000px;
-  transition: max-height .3s cubic-bezier(0.4,0,0.2,1);
+  max-height: 4000px;
   overflow: hidden;
+  transition: max-height .3s ease;
 }
 .rc.collapsed .rb { max-height: 0; }
 
-.col { padding: 18px 18px 20px; }
-.col:first-child { border-right: 1px solid var(--line); }
-
-.col-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 12px;
-  padding-bottom: 8px;
+/* ─── KEY FACTS SECTION ─── */
+.facts-section {
+  padding: 14px 14px 10px;
   border-bottom: 1px solid var(--line);
 }
-
-/* ── KEY FACTS ── */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
 .desc {
-  font-size: 12.5px;
-  line-height: 1.8;
+  font-size: 14px;
+  line-height: 1.75;
   color: var(--ink2);
 }
 
+/* ─── KEYWORDS ─── */
 .kw {
   display: inline-block;
-  font-family: 'DM Mono', monospace;
-  font-size: 10.5px;
-  background: var(--bg);
-  border: 1px solid var(--faint);
-  border-radius: 3px;
-  padding: 1px 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  background: var(--faint);
+  border: 1.5px solid var(--line);
+  border-radius: 5px;
+  padding: 2px 8px;
   margin: 2px 2px 2px 0;
   cursor: pointer;
   transition: all .12s;
   vertical-align: middle;
   color: var(--ink2);
+  -webkit-tap-highlight-color: transparent;
 }
-.kw:hover { background: var(--faint); border-color: #ccc; }
+.kw.r { border-left: 3px solid var(--tag-r); }
+.kw.b { border-left: 3px solid var(--tag-b); }
+.kw.g { border-left: 3px solid var(--tag-g); }
 
-.kw.r { border-left: 2.5px solid var(--coral); }
-.kw.b { border-left: 2.5px solid var(--sky); }
-.kw.g { border-left: 2.5px solid var(--green); }
+.kw.on      { font-weight: 600; }
+.kw.on.r    { background: #fdf0ee; border-color: var(--tag-r); color: var(--tag-r); }
+.kw.on.b    { background: #eef4fd; border-color: var(--tag-b); color: var(--tag-b); }
+.kw.on.g    { background: #edf7f1; border-color: var(--tag-g); color: var(--tag-g); }
+.kw.on:not(.r):not(.b):not(.g) { background: var(--faint); border-color: var(--ink); color: var(--ink); }
 
-.kw.on   { background: var(--faint); border-color: var(--ink); color: var(--ink); font-weight: 500; }
-.kw.on.r { background: #fdf0ee; border-color: var(--coral); border-left-width: 2.5px; color: var(--coral); }
-.kw.on.b { background: #eef4fd; border-color: var(--sky);   border-left-width: 2.5px; color: var(--sky); }
-.kw.on.g { background: #edf7f1; border-color: var(--green); border-left-width: 2.5px; color: var(--green); }
+/* ─── TABLE SECTION ─── */
+.table-section {
+  padding: 14px 14px 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 
-/* ── TABLE ── */
-.ut { width: 100%; border-collapse: collapse; font-size: 12px; }
-.ut thead tr { background: var(--bg); }
+.ut {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  min-width: 300px;
+}
+.ut thead tr { background: var(--faint); }
 .ut thead th {
-  padding: 7px 12px;
+  padding: 8px 10px;
   text-align: left;
-  font-family: 'DM Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--muted);
   border-bottom: 1px solid var(--line);
+  white-space: nowrap;
 }
-.ut tbody tr { border-bottom: 1px solid var(--line); transition: background .1s; }
+.ut tbody tr { border-bottom: 1px solid var(--line); }
 .ut tbody tr:last-child { border-bottom: none; }
-.ut tbody tr:hover { background: var(--bg); }
-.ut td { padding: 7px 12px; vertical-align: top; }
+.ut tbody tr:hover { background: var(--faint); }
+.ut td { padding: 9px 10px; vertical-align: top; }
 
-.td-prov { font-weight: 600; color: var(--ink); width: 30%; font-size: 12px; }
-.td-cap  { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--muted); width: 26%; }
-.td-nick { font-size: 11.5px; font-style: italic; font-weight: 500; }
-
+.td-prov {
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 13.5px;
+  white-space: nowrap;
+}
+.td-cap {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.td-nick {
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 500;
+}
 .luzon-card    .td-nick { color: var(--luzon); }
 .visayas-card  .td-nick { color: var(--visayas); }
 .mindanao-card .td-nick { color: var(--mindanao); }
-.td-nick.none { color: var(--faint); font-style: normal; font-weight: 400; font-size: 11px; }
-
-/* ── NOTE ── */
-.pc-note {
-  font-size: 11px;
-  color: var(--gold);
-  font-weight: 500;
-  margin-top: 12px;
-  line-height: 1.65;
-  padding: 8px 12px;
-  background: var(--gold-bg);
-  border-radius: 5px;
-  border-left: 2px solid var(--gold-bd);
+.td-nick.none {
+  color: #ccc;
+  font-style: normal;
+  font-weight: 400;
 }
-.pc-note strong { color: var(--gold); font-weight: 700; }
 
-/* ── HIDDEN ── */
+/* ─── NOTE ─── */
+.pc-note {
+  margin: 10px 14px 14px;
+  padding: 10px 12px;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--note-tx);
+  background: var(--note-bg);
+  border-left: 3px solid var(--note-bd);
+  border-radius: 6px;
+  font-weight: 500;
+}
+.pc-note strong { font-weight: 700; }
+
+/* ─── HIDDEN ─── */
 .rc.hidden { display: none; }
+.grp-header.hidden { display: none; }
 
-/* ── ANIMATION ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(10px); }
+/* ─── LEGEND ROW ─── */
+.legend-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 8px 16px;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.li { display: flex; align-items: center; gap: 5px; }
+.ld {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ─── FADE IN ─── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.rc:nth-child(1) { animation-delay: .04s; }
-.rc:nth-child(2) { animation-delay: .08s; }
-.rc:nth-child(3) { animation-delay: .12s; }
-.rc:nth-child(4) { animation-delay: .16s; }
-.rc:nth-child(5) { animation-delay: .20s; }
-.rc:nth-child(6) { animation-delay: .24s; }
-.rc:nth-child(7) { animation-delay: .28s; }
-.rc:nth-child(8) { animation-delay: .32s; }
-.island-group-header { animation-delay: .02s; }
+.rc, .grp-header {
+  opacity: 0;
+  animation: fadeIn .3s forwards;
+}
+.rc:nth-child(1)  { animation-delay: .03s; }
+.rc:nth-child(2)  { animation-delay: .06s; }
+.rc:nth-child(3)  { animation-delay: .09s; }
+.rc:nth-child(4)  { animation-delay: .12s; }
+.rc:nth-child(5)  { animation-delay: .15s; }
+.rc:nth-child(6)  { animation-delay: .18s; }
+.rc:nth-child(7)  { animation-delay: .21s; }
+.rc:nth-child(8)  { animation-delay: .24s; }
+.grp-header       { animation-delay: .01s; }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 720px) {
-  header, main { padding-left: 18px; padding-right: 18px; }
-  .nav-bar, .search-bar { padding-left: 18px; padding-right: 18px; }
-  .rb { grid-template-columns: 1fr; }
-  .col:first-child { border-right: none; border-bottom: 1px solid var(--line); }
-  .legend { display: none; }
+/* ─── DESKTOP LAYOUT ─── */
+@media (min-width: 680px) {
+  main { padding: 20px 24px 80px; }
+  header { padding: 32px 32px 24px; }
+  .nav-bar, .search-bar, .legend-row { padding-left: 24px; padding-right: 24px; }
+
+  .rb {
+    display: grid;
+    grid-template-columns: 1fr 1.7fr;
+    grid-template-rows: auto;
+  }
+  .facts-section {
+    border-bottom: none;
+    border-right: 1px solid var(--line);
+    padding: 16px;
+  }
+  /* table + note span 2nd column */
+  .table-section { grid-column: 2; grid-row: 1; padding: 16px 16px 10px; }
+  .pc-note       { grid-column: 2; margin: 0 16px 16px; }
+
+  .rname { font-size: 14px; }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <div>
-    <div class="htag">TH2205 · Handout 03 · Keyword Reviewer</div>
-    <div class="htitle">Regions of the <em>Philippines</em></div>
-    <div class="hsub">NCR · CAR · Regions I–XIII · BARMM</div>
-  </div>
-  <div class="hbadge">Handout 03</div>
+  <div class="htag">TH2205 · Handout 03</div>
+  <div class="htitle">Regions of the <em>Philippines</em></div>
+  <div class="hsub">NCR · CAR · Regions I–XIII · BARMM</div>
 </header>
 
 <nav class="nav-bar">
-  <button class="nav-btn active-all" onclick="filterGroup('all', this)">All</button>
+  <button class="nav-btn a-all" onclick="filterGroup('all',this)">All</button>
   <div class="nav-sep"></div>
-  <button class="nav-btn" onclick="filterGroup('luzon', this)">Luzon</button>
-  <button class="nav-btn" onclick="filterGroup('visayas', this)">Visayas</button>
-  <button class="nav-btn" onclick="filterGroup('mindanao', this)">Mindanao</button>
+  <button class="nav-btn" onclick="filterGroup('luzon',this)">Luzon</button>
+  <button class="nav-btn" onclick="filterGroup('visayas',this)">Visayas</button>
+  <button class="nav-btn" onclick="filterGroup('mindanao',this)">Mindanao</button>
   <div class="nav-sep"></div>
   <button class="nav-btn" onclick="expandAll()">Expand All</button>
   <button class="nav-btn" onclick="collapseAll()">Collapse All</button>
@@ -449,36 +448,36 @@ main {
 <div class="search-bar">
   <div class="search-wrap">
     <span class="search-icon">⌕</span>
-    <input class="search-input" type="text" placeholder="Search regions, provinces, capitals, nicknames…" oninput="doSearch(this.value)" />
+    <input class="search-input" type="search" autocomplete="off" placeholder="Search regions, provinces, capitals…" oninput="doSearch(this.value)">
   </div>
-  <div class="legend">
-    <div class="li"><div class="ld" style="background:var(--sky)"></div>Heritage</div>
-    <div class="li"><div class="ld" style="background:var(--coral)"></div>Important</div>
-    <div class="li"><div class="ld" style="background:var(--green)"></div>Nature</div>
-    <div class="li" style="color:var(--muted)">· Click to highlight</div>
-  </div>
+</div>
+
+<div class="legend-row">
+  <div class="li"><div class="ld" style="background:var(--tag-b)"></div>Heritage</div>
+  <div class="li"><div class="ld" style="background:var(--tag-r)"></div>Important</div>
+  <div class="li"><div class="ld" style="background:var(--tag-g)"></div>Nature</div>
+  <span style="color:#bbb;font-size:11px">tap keywords to highlight</span>
 </div>
 
 <main>
 
-<!-- ═══ LUZON ═══ -->
-<div class="island-group-header">
-  <div class="igh-line"></div>
-  <span class="igh-label luzon">Luzon</span>
-  <div class="igh-line"></div>
+<!-- ══ LUZON ══ -->
+<div class="grp-header" data-grp="luzon">
+  <div class="grp-line"></div>
+  <span class="grp-pill luzon">Luzon</span>
+  <div class="grp-line"></div>
 </div>
 
 <!-- NCR -->
-<div class="rc luzon-card" data-group="luzon" data-search="ncr national capital region metropolitan manila pateros marikina muntinlupa taguig valenzuela antipolo caloocan las piñas makati malabon mandaluyong navotas parañaque pasay pasig san juan naia rizal park intramuros">
+<div class="rc luzon-card" data-group="luzon" data-search="ncr national capital region metropolitan manila pateros marikina muntinlupa taguig valenzuela antipolo caloocan las piñas makati malabon mandaluyong navotas parañaque pasay pasig san juan naia rizal park intramuros shoe capital emerald city">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">NCR</span>
     <span class="rname">National Capital Region</span>
-    <span class="rtag">Luzon</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
         Also known as <span class="kw r">Metropolitan Manila</span>.<br>
         <span class="kw r">Only region WITHOUT a province</span>.<br>
@@ -488,10 +487,10 @@ main {
         Tourist spots: <span class="kw g">Rizal Park</span>, <span class="kw g">National Museum</span>, <span class="kw g">Intramuros</span>.
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Cities / Municipality → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Cities / Municipality → Nickname</div>
       <table class="ut">
-        <thead><tr><th>City / Municipality</th><th>Note</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>City / Municipality</th><th>Note</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Manila</td><td class="td-cap">Capital of PH</td><td class="td-nick">Ever Distinguished Loyal City</td></tr>
           <tr><td class="td-prov">Quezon City</td><td class="td-cap">—</td><td class="td-nick">City of Stars and New Horizons</td></tr>
@@ -510,7 +509,7 @@ main {
           <tr><td class="td-prov">Pasay</td><td class="td-cap">—</td><td class="td-nick none">—</td></tr>
           <tr><td class="td-prov">Pasig</td><td class="td-cap">—</td><td class="td-nick none">—</td></tr>
           <tr><td class="td-prov">San Juan</td><td class="td-cap">—</td><td class="td-nick none">—</td></tr>
-          <tr><td class="td-prov"><em>Pateros</em></td><td class="td-cap"><em>Municipality</em></td><td class="td-nick none">—</td></tr>
+          <tr><td class="td-prov">Pateros</td><td class="td-cap">Municipality</td><td class="td-nick none">—</td></tr>
         </tbody>
       </table>
     </div>
@@ -518,28 +517,27 @@ main {
 </div>
 
 <!-- CAR -->
-<div class="rc luzon-card" data-group="luzon" data-search="car cordillera administrative region abra apayao benguet ifugao kalinga mountain province baguio igorot banaue rice terraces sumaguing cave la trinidad salad bowl summer capital city of pines strawberry rose capital">
+<div class="rc luzon-card" data-group="luzon" data-search="car cordillera abra apayao benguet ifugao kalinga mountain province baguio igorot banaue rice terraces sumaguing cave la trinidad salad bowl summer capital city of pines strawberry rose landlocked ethnolinguistic">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">CAR</span>
     <span class="rname">Cordillera Administrative Region</span>
-    <span class="rtag">Luzon</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
         <span class="kw r">Only landlocked region</span> in PH.<br>
         Bordered by <span class="kw">Ilocos Region (W/SW)</span> & <span class="kw">Cagayan Valley (N/E/SE)</span>.<br>
         Indigenous tribes = <span class="kw r">Igorot</span>.<br>
         <span class="kw b">"Most diversified ethnolinguistic region"</span> in PH.<br>
-        Tourist spots: <span class="kw g">Banaue Rice Terraces</span> (Ifugao), <span class="kw g">Sumaguing Cave</span> (Sagada), <span class="kw g">Baguio City</span> (Benguet).
+        Tourist: <span class="kw g">Banaue Rice Terraces</span>, <span class="kw g">Sumaguing Cave</span> (Sagada), <span class="kw g">Baguio City</span>.
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Province → Capital → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Province → Capital → Nickname</div>
       <table class="ut">
-        <thead><tr><th>Province</th><th>Capital</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>Province</th><th>Capital</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Abra</td><td class="td-cap">Bangued</td><td class="td-nick none">—</td></tr>
           <tr><td class="td-prov">Apayao</td><td class="td-cap">Kabugao</td><td class="td-nick none">—</td></tr>
@@ -549,8 +547,8 @@ main {
           <tr><td class="td-prov">Mountain Province</td><td class="td-cap">Bontoc</td><td class="td-nick none">—</td></tr>
         </tbody>
       </table>
-      <div class="pc-note">📍 Baguio City (in Benguet) = <strong>Summer Capital of PH</strong> & <strong>City of Pines</strong> · La Trinidad = <strong>Strawberry & Rose Capital</strong></div>
     </div>
+    <div class="pc-note">📍 Baguio City = <strong>Summer Capital of PH</strong> & <strong>City of Pines</strong> · La Trinidad = <strong>Strawberry & Rose Capital</strong></div>
   </div>
 </div>
 
@@ -559,23 +557,21 @@ main {
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region I</span>
     <span class="rname">Ilocos Region</span>
-    <span class="rtag">Luzon</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
         Located on the <span class="kw">northern coast of Luzon</span>.<br>
-        Prone to typhoons; hot in dry season.<br>
-        Dialects: <span class="kw b">Ilocano</span> (widely used), <span class="kw b">Pangasinense</span> (central Pangasinan).<br>
-        Tourist spots: <span class="kw g">Paoay Church</span> (UNESCO, Ilocos Norte), <span class="kw g">Vigan City</span> (UNESCO, Ilocos Sur), <span class="kw g">Hundred Islands</span> (Pangasinan).
+        Dialects: <span class="kw b">Ilocano</span>, <span class="kw b">Pangasinense</span>.<br>
+        Tourist: <span class="kw g">Paoay Church</span> (UNESCO), <span class="kw g">Vigan City</span> (UNESCO), <span class="kw g">Hundred Islands</span> (Pangasinan).
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Province → Capital → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Province → Capital → Nickname</div>
       <table class="ut">
-        <thead><tr><th>Province</th><th>Capital</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>Province</th><th>Capital</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Ilocos Norte</td><td class="td-cap">Laoag</td><td class="td-nick none">—</td></tr>
           <tr><td class="td-prov">Ilocos Sur</td><td class="td-cap">Vigan</td><td class="td-nick">Heritage City of the Philippines</td></tr>
@@ -583,8 +579,8 @@ main {
           <tr><td class="td-prov">Pangasinan</td><td class="td-cap">Lingayen</td><td class="td-nick none">—</td></tr>
         </tbody>
       </table>
-      <div class="pc-note">📍 Dagupan City (Pangasinan) = <strong>Bangus Capital</strong> · Lingayen = <strong>Most Romantic Place in PH</strong></div>
     </div>
+    <div class="pc-note">📍 Dagupan City = <strong>Bangus Capital</strong> · Lingayen = <strong>Most Romantic Place in PH</strong></div>
   </div>
 </div>
 
@@ -593,23 +589,22 @@ main {
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region II</span>
     <span class="rname">Cagayan Valley</span>
-    <span class="rtag">Luzon</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
         Located in <span class="kw">northeastern Luzon</span>.<br>
         Bounded W by <span class="kw">Cordillera Mtn. Range</span>; E by <span class="kw">Sierra Madre</span>.<br>
-        Fertile agriculture: <span class="kw b">rice, corn, tobacco, fruits & vegetables</span>.<br>
-        Tourist spots: <span class="kw g">Batan Island</span> (Batanes), <span class="kw g">Callao Cave</span> (Cagayan), <span class="kw g">Aguinaldo Shrine</span> (Isabela).
+        Fertile: <span class="kw b">rice, corn, tobacco, fruits & vegetables</span>.<br>
+        Tourist: <span class="kw g">Batan Island</span> (Batanes), <span class="kw g">Callao Cave</span> (Cagayan).
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Province → Capital → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Province → Capital → Nickname</div>
       <table class="ut">
-        <thead><tr><th>Province</th><th>Capital</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>Province</th><th>Capital</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Batanes</td><td class="td-cap">Basco</td><td class="td-nick">Land of True Insulars</td></tr>
           <tr><td class="td-prov">Cagayan</td><td class="td-cap">Tuguegarao</td><td class="td-nick none">—</td></tr>
@@ -623,28 +618,27 @@ main {
 </div>
 
 <!-- REGION III -->
-<div class="rc luzon-card" data-group="luzon" data-search="region 3 central luzon aurora bataan bulacan nueva ecija pampanga tarlac zambales baler balanga malolos palayan san fernando rice granary clark international airport mt samat arayat tagalog kapampangan lantern capital culinary melting pot">
+<div class="rc luzon-card" data-group="luzon" data-search="region 3 central luzon aurora bataan bulacan nueva ecija pampanga tarlac zambales baler balanga malolos palayan san fernando rice granary clark airport mt samat kapampangan tagalog lantern capital culinary melting pot">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region III</span>
     <span class="rname">Central Luzon</span>
-    <span class="rtag">Luzon</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
         <span class="kw r">"Rice Granary of the Philippines"</span><br>
         Contains the <span class="kw b">largest plain in the country</span> (Nueva Ecija).<br>
-        Dialects: <span class="kw b">Tagalog</span>, <span class="kw b">Kapampangan</span> (Pampanga/Tarlac), <span class="kw b">Ilocano</span> (Zambales).<br>
+        Dialects: <span class="kw b">Tagalog</span>, <span class="kw b">Kapampangan</span>, <span class="kw b">Ilocano</span>.<br>
         <span class="kw r">Clark International Airport</span> = Pampanga.<br>
-        Tourist spots: <span class="kw g">Mt. Samat</span> (Bataan), <span class="kw g">Mt. Arayat</span> (Pampanga), <span class="kw g">beaches</span> (Aurora).
+        Tourist: <span class="kw g">Mt. Samat</span> (Bataan), <span class="kw g">Mt. Arayat</span> (Pampanga).
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Province → Capital → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Province → Capital → Nickname</div>
       <table class="ut">
-        <thead><tr><th>Province</th><th>Capital</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>Province</th><th>Capital</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Aurora</td><td class="td-cap">Baler</td><td class="td-nick">Land of Golden Sunrise</td></tr>
           <tr><td class="td-prov">Bataan</td><td class="td-cap">Balanga</td><td class="td-nick">History Hub of Central Luzon</td></tr>
@@ -655,34 +649,32 @@ main {
           <tr><td class="td-prov">Zambales</td><td class="td-cap">Iba</td><td class="td-nick none">—</td></tr>
         </tbody>
       </table>
-      <div class="pc-note">📍 San Fernando, Pampanga = <strong>Lantern Capital of the Philippines</strong></div>
     </div>
+    <div class="pc-note">📍 San Fernando, Pampanga = <strong>Lantern Capital of the Philippines</strong></div>
   </div>
 </div>
 
 <!-- REGION IV-A -->
-<div class="rc luzon-card" data-group="luzon" data-search="region 4a calabarzon batangas cavite laguna quezon rizal imus santa cruz lucena antipolo pagsanjan falls taal lake volcano industrial powerhouse tagalog arts capital garments nudibranch pilgrimage">
+<div class="rc luzon-card" data-group="luzon" data-search="region 4a calabarzon batangas cavite laguna quezon rizal imus santa cruz lucena antipolo pagsanjan taal industrial powerhouse tagalog arts garments nudibranch pilgrimage">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region IV-A</span>
     <span class="rname">CALABARZON</span>
-    <span class="rtag">Luzon</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
         SW Luzon, south & east of Metro Manila.<br>
-        <span class="kw r">"Industrial Powerhouse of the Philippines"</span> — ecozones.<br>
-        Historical: <span class="kw b">Batangas, Cavite & Laguna</span> = first to revolt vs. Spain.<br>
-        Dialect: <span class="kw b">Tagalog</span> (majority).<br>
-        Tourist spots: <span class="kw g">Pagsanjan Falls</span> (Laguna), <span class="kw g">Taal Lake & Volcano</span> (Batangas), <span class="kw g">white-sand beaches</span> (Quezon).
+        <span class="kw r">"Industrial Powerhouse of the Philippines"</span><br>
+        <span class="kw b">Batangas, Cavite & Laguna</span> = first to revolt vs. Spain.<br>
+        Tourist: <span class="kw g">Pagsanjan Falls</span> (Laguna), <span class="kw g">Taal Lake & Volcano</span> (Batangas).
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Province → Capital → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Province → Capital → Nickname</div>
       <table class="ut">
-        <thead><tr><th>Province</th><th>Capital</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>Province</th><th>Capital</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Batangas</td><td class="td-cap">Batangas City</td><td class="td-nick none">—</td></tr>
           <tr><td class="td-prov">Cavite</td><td class="td-cap">Imus</td><td class="td-nick none">—</td></tr>
@@ -691,37 +683,36 @@ main {
           <tr><td class="td-prov">Rizal</td><td class="td-cap">Antipolo</td><td class="td-nick">Cradle of Philippine Arts</td></tr>
         </tbody>
       </table>
-      <div class="pc-note">📍 Angono, Rizal = <strong>Arts Capital of PH</strong> · Taytay, Rizal = <strong>Garments Capital</strong> · Anilao, Batangas = <strong>Nudibranch Capital</strong> · Antipolo = <strong>Pilgrimage Capital & City in the Sky</strong></div>
     </div>
+    <div class="pc-note">📍 Angono = <strong>Arts Capital of PH</strong> · Taytay = <strong>Garments Capital</strong> · Anilao = <strong>Nudibranch Capital</strong> · Antipolo = <strong>Pilgrimage Capital & City in the Sky</strong></div>
   </div>
 </div>
 
 <!-- REGION IV-B -->
-<div class="rc luzon-card" data-group="luzon" data-search="region 4b mimaropa marinduque occidental mindoro oriental mindoro palawan romblon boac mamburao calapan puerto princesa marble capital heart philippines tabon caves subterranean river poctoy white beach el nido heaven on earth">
+<div class="rc luzon-card" data-group="luzon" data-search="region 4b mimaropa marinduque occidental mindoro oriental mindoro palawan romblon boac mamburao calapan puerto princesa marble heart philippines tabon caves subterranean river el nido heaven on earth">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region IV-B</span>
     <span class="rname">MIMAROPA</span>
-    <span class="rtag">Luzon</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
         Also known as <span class="kw b">Southern Tagalog Islands</span>.<br>
         Provinces separated by water → <span class="kw r">3 different climates</span>.<br>
-        Tourist spots: <span class="kw g">Poctoy White Beach</span> (Marinduque), <span class="kw g">Tabon Caves</span> (Palawan), <span class="kw g">Puerto Princesa Subterranean River</span> (Palawan).
+        Tourist: <span class="kw g">Poctoy White Beach</span> (Marinduque), <span class="kw g">Tabon Caves</span> (Palawan), <span class="kw g">Puerto Princesa Subterranean River</span>.
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Province → Capital → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Province → Capital → Nickname</div>
       <table class="ut">
-        <thead><tr><th>Province</th><th>Capital</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>Province</th><th>Capital</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Marinduque</td><td class="td-cap">Boac</td><td class="td-nick">Heart of the Philippines</td></tr>
-          <tr><td class="td-prov">Occidental Mindoro</td><td class="td-cap">Mamburao</td><td class="td-nick none">—</td></tr>
-          <tr><td class="td-prov">Oriental Mindoro</td><td class="td-cap">Calapan</td><td class="td-nick none">—</td></tr>
-          <tr><td class="td-prov">Palawan</td><td class="td-cap">Puerto Princesa</td><td class="td-nick">Largest Province in PH / Heaven on Earth</td></tr>
+          <tr><td class="td-prov">Occ. Mindoro</td><td class="td-cap">Mamburao</td><td class="td-nick none">—</td></tr>
+          <tr><td class="td-prov">Or. Mindoro</td><td class="td-cap">Calapan</td><td class="td-nick none">—</td></tr>
+          <tr><td class="td-prov">Palawan</td><td class="td-cap">Puerto Princesa</td><td class="td-nick">Largest Province / Heaven on Earth</td></tr>
           <tr><td class="td-prov">Romblon</td><td class="td-cap">Romblon</td><td class="td-nick">Marble Capital of the Philippines</td></tr>
         </tbody>
       </table>
@@ -730,70 +721,68 @@ main {
 </div>
 
 <!-- REGION V -->
-<div class="rc luzon-card" data-group="luzon" data-search="region 5 bicol bicolandia albay camarines norte sur catanduanes masbate sorsogon legazpi daet pili virac mayon volcano cagsawa caramoan whale shark donsol howling wind kasanggayahan">
+<div class="rc luzon-card" data-group="luzon" data-search="region 5 bicol bicolandia albay camarines norte sur catanduanes masbate sorsogon legazpi daet pili virac masbate city sorsogon city mayon volcano cagsawa caramoan whale shark donsol howling wind kasanggayahan">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region V</span>
     <span class="rname">Bicol Region (Bicolandia)</span>
-    <span class="rtag">Luzon</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
-        <span class="kw r">Southernmost tip of Luzon Island</span>.<br>
-        <span class="kw r">Mayon Volcano</span> (Albay) = <span class="kw b">most active volcano in PH</span>; <span class="kw b">perfect conical shape</span>.<br>
+        <span class="kw r">Southernmost tip of Luzon</span>.<br>
+        <span class="kw r">Mayon Volcano</span> (Albay) = <span class="kw b">most active volcano in PH</span>; perfect conical shape.<br>
         Dialects: <span class="kw b">Bikol & Filipino</span>.<br>
-        Tourist spots: <span class="kw g">Mayon Volcano & Cagsawa Ruins</span> (Albay), <span class="kw g">Caramoan Islands</span> (Camarines Sur).
+        Tourist: <span class="kw g">Mayon Volcano & Cagsawa Ruins</span>, <span class="kw g">Caramoan Islands</span>.
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Province → Capital → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Province → Capital → Nickname</div>
       <table class="ut">
-        <thead><tr><th>Province</th><th>Capital</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>Province</th><th>Capital</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Albay</td><td class="td-cap">Legazpi</td><td class="td-nick">City of Fun and Adventure</td></tr>
           <tr><td class="td-prov">Camarines Norte</td><td class="td-cap">Daet</td><td class="td-nick none">—</td></tr>
           <tr><td class="td-prov">Camarines Sur</td><td class="td-cap">Pili</td><td class="td-nick none">—</td></tr>
           <tr><td class="td-prov">Catanduanes</td><td class="td-cap">Virac</td><td class="td-nick">Land of the Howling Wind</td></tr>
           <tr><td class="td-prov">Masbate</td><td class="td-cap">Masbate City</td><td class="td-nick none">—</td></tr>
-          <tr><td class="td-prov">Sorsogon</td><td class="td-cap">Sorsogon City</td><td class="td-nick">Land of Kasanggayahan / Life of Prosperity</td></tr>
+          <tr><td class="td-prov">Sorsogon</td><td class="td-cap">Sorsogon City</td><td class="td-nick">Land of Kasanggayahan</td></tr>
         </tbody>
       </table>
-      <div class="pc-note">📍 Donsol, Sorsogon = <strong>Whale Shark Capital of the World</strong></div>
     </div>
+    <div class="pc-note">📍 Donsol, Sorsogon = <strong>Whale Shark Capital of the World</strong></div>
   </div>
 </div>
 
-<!-- ═══ VISAYAS ═══ -->
-<div class="island-group-header">
-  <div class="igh-line"></div>
-  <span class="igh-label visayas">Visayas</span>
-  <div class="igh-line"></div>
+<!-- ══ VISAYAS ══ -->
+<div class="grp-header" data-grp="visayas">
+  <div class="grp-line"></div>
+  <span class="grp-pill visayas">Visayas</span>
+  <div class="grp-line"></div>
 </div>
 
 <!-- REGION VI -->
-<div class="rc visayas-card" data-group="visayas" data-search="region 6 western visayas aklan antique capiz guimaras iloilo kalibo san jose roxas jordan iloilo city ati-atihan boracay miagao church hiligaynon kinaray-a aklanon oldest province mango capital beach capital first queen city">
+<div class="rc visayas-card" data-group="visayas" data-search="region 6 western visayas aklan antique capiz guimaras iloilo kalibo san jose roxas jordan iloilo city ati-atihan boracay miagao church hiligaynon kinaray-a aklanon oldest province mango beach capital first queen city">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region VI</span>
     <span class="rname">Western Visayas</span>
-    <span class="rtag">Visayas</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
         People = <span class="kw b">"Visayans / Bisayans."</span><br>
-        Dialects: <span class="kw b">Kinaray-a</span> (Antique), <span class="kw b">Hiligaynon</span> (Capiz), <span class="kw b">Aklanon</span> (Panay).<br>
-        Famous for: <span class="kw r">Ati-Atihan Festival</span> — Kalibo, Aklan; honors Infant Jesus; <span class="kw r">most popular festival in PH</span>.<br>
-        Tourist spots: <span class="kw g">Boracay Island</span> ("Beach Capital"), <span class="kw g">Miagao Church</span> (Iloilo), <span class="kw g">Baybay Beach</span> (Capiz).
+        Dialects: <span class="kw b">Kinaray-a</span>, <span class="kw b">Hiligaynon</span>, <span class="kw b">Aklanon</span>.<br>
+        <span class="kw r">Ati-Atihan Festival</span> — Kalibo, Aklan = <span class="kw r">most popular festival in PH</span>.<br>
+        Tourist: <span class="kw g">Boracay Island</span>, <span class="kw g">Miagao Church</span> (Iloilo).
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Province → Capital → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Province → Capital → Nickname</div>
       <table class="ut">
-        <thead><tr><th>Province</th><th>Capital</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>Province</th><th>Capital</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Aklan</td><td class="td-cap">Kalibo</td><td class="td-nick">Oldest Province in PH</td></tr>
           <tr><td class="td-prov">Antique</td><td class="td-cap">San Jose de Buenavista</td><td class="td-nick none">—</td></tr>
@@ -802,8 +791,8 @@ main {
           <tr><td class="td-prov">Iloilo</td><td class="td-cap">Iloilo City</td><td class="td-nick">First Queen City of the South</td></tr>
         </tbody>
       </table>
-      <div class="pc-note">📍 Boracay, Aklan = <strong>Beach Capital of the Philippines</strong></div>
     </div>
+    <div class="pc-note">📍 Boracay, Aklan = <strong>Beach Capital of the Philippines</strong></div>
   </div>
 </div>
 
@@ -812,56 +801,54 @@ main {
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">NIR</span>
     <span class="rname">Negros Island Region</span>
-    <span class="rtag">Visayas</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
-        Rich <span class="kw b">cultural heritage, diverse languages & natural wonders</span>.<br>
+        Rich <span class="kw b">cultural heritage & natural wonders</span>.<br>
         Dialects: <span class="kw b">Hiligaynon & Cebuano</span>.<br>
-        Features: <span class="kw">vast sugarcane plantations</span>, vibrant festivals.<br>
-        Tourist spots: <span class="kw g">San Sebastian Cathedral</span> (Bacolod), <span class="kw g">Apo Island</span> (Negros Oriental), <span class="kw g">Cantabon Cave</span> (Siquijor).
+        <span class="kw">Vast sugarcane plantations</span>, vibrant festivals.<br>
+        Tourist: <span class="kw g">Apo Island</span> (Negros Oriental), <span class="kw g">Cantabon Cave</span> (Siquijor).
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Province → Capital → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Province → Capital → Nickname</div>
       <table class="ut">
-        <thead><tr><th>Province</th><th>Capital</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>Province</th><th>Capital</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Negros Occidental</td><td class="td-cap">Bacolod</td><td class="td-nick">Sugarbowl of PH · City of Smiles</td></tr>
-          <tr><td class="td-prov">Negros Oriental</td><td class="td-cap">Dumaguete</td><td class="td-nick">City of Gentle People · Whale & Dolphin Haven</td></tr>
+          <tr><td class="td-prov">Negros Oriental</td><td class="td-cap">Dumaguete</td><td class="td-nick">City of Gentle People</td></tr>
           <tr><td class="td-prov">Siquijor</td><td class="td-cap">Siquijor</td><td class="td-nick">Island of Fire</td></tr>
         </tbody>
       </table>
-      <div class="pc-note">📍 Mabinay, Negros Oriental = <strong>Caving Capital of the Philippines</strong></div>
     </div>
+    <div class="pc-note">📍 Mabinay, Negros Oriental = <strong>Caving Capital of the Philippines</strong></div>
   </div>
 </div>
 
 <!-- REGION VII -->
-<div class="rc visayas-card" data-group="visayas" data-search="region 7 central visayas bohol cebu tagbilaran cebu city chocolate hills magellan's cross cebuano oldest city diving sites 16th century peace friendship gateway">
+<div class="rc visayas-card" data-group="visayas" data-search="region 7 central visayas bohol cebu tagbilaran cebu city chocolate hills magellan's cross cebuano oldest city diving 16th century peace friendship gateway">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region VII</span>
     <span class="rname">Central Visayas</span>
-    <span class="rtag">Visayas</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
-        Central part of Visayas. Dominant dialect: <span class="kw b">Cebuano</span>.<br>
-        Rich historical & cultural heritage since the <span class="kw b">16th century</span>.<br>
-        Pristine white beaches; <span class="kw r">best diving sites</span>.<br>
-        Tourist spots: <span class="kw g">Chocolate Hills</span> (Bohol), <span class="kw g">Magellan's Cross</span> (Cebu).
+        Dominant dialect: <span class="kw b">Cebuano</span>.<br>
+        Rich heritage since the <span class="kw b">16th century</span>.<br>
+        <span class="kw r">Best diving sites</span> in PH.<br>
+        Tourist: <span class="kw g">Chocolate Hills</span> (Bohol), <span class="kw g">Magellan's Cross</span> (Cebu).
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Province → Capital → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Province → Capital → Nickname</div>
       <table class="ut">
-        <thead><tr><th>Province</th><th>Capital</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>Province</th><th>Capital</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Bohol</td><td class="td-cap">Tagbilaran</td><td class="td-nick">City of Peace and Friendship</td></tr>
           <tr><td class="td-prov">Cebu</td><td class="td-cap">Cebu City</td><td class="td-nick">Oldest City in PH · Gateway to a Thousand Journeys</td></tr>
@@ -876,23 +863,22 @@ main {
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region VIII</span>
     <span class="rname">Eastern Visayas</span>
-    <span class="rtag">Visayas</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
-        <span class="kw r">3 main islands</span>: Leyte, Samar (via <span class="kw b">San Juanico Bridge</span>), Biliran.<br>
-        Faces <span class="kw">Pacific Ocean</span> directly.<br>
-        Dialects: <span class="kw b">Cebuano, Waray-Waray</span>; Inabaknon (N. Samar).<br>
-        Tourist spots: <span class="kw g">Homonhon Island</span> (E. Samar), <span class="kw g">Red Beach</span> (Leyte), <span class="kw g">Sambawan Island</span> (Biliran).
+        <span class="kw r">3 main islands</span>: Leyte, Samar, Biliran.<br>
+        Connected via <span class="kw b">San Juanico Bridge</span>. Faces <span class="kw">Pacific Ocean</span>.<br>
+        Dialects: <span class="kw b">Cebuano, Waray-Waray</span>.<br>
+        Tourist: <span class="kw g">Homonhon Island</span>, <span class="kw g">Red Beach</span> (Leyte), <span class="kw g">Sambawan Island</span> (Biliran).
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Province → Capital → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Province → Capital → Nickname</div>
       <table class="ut">
-        <thead><tr><th>Province</th><th>Capital</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>Province</th><th>Capital</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Biliran</td><td class="td-cap">Naval</td><td class="td-nick">Shipyard of Antiquity</td></tr>
           <tr><td class="td-prov">Eastern Samar</td><td class="td-cap">Borongan</td><td class="td-nick none">—</td></tr>
@@ -906,43 +892,41 @@ main {
   </div>
 </div>
 
-<!-- ═══ MINDANAO ═══ -->
-<div class="island-group-header">
-  <div class="igh-line"></div>
-  <span class="igh-label mindanao">Mindanao</span>
-  <div class="igh-line"></div>
+<!-- ══ MINDANAO ══ -->
+<div class="grp-header" data-grp="mindanao">
+  <div class="grp-line"></div>
+  <span class="grp-pill mindanao">Mindanao</span>
+  <div class="grp-line"></div>
 </div>
 
 <!-- REGION IX -->
-<div class="rc mindanao-card" data-group="mindanao" data-search="region 9 zamboanga peninsula zamboanga del norte del sur sibugay dipolog pagadian ipil santa cruz island zamboanga city asia latin sardines orchid city flowers dapitan shrine little hong kong twin city bisaya tausug maranao">
+<div class="rc mindanao-card" data-group="mindanao" data-search="region 9 zamboanga peninsula zamboanga del norte del sur sibugay dipolog pagadian ipil santa cruz island zamboanga city asia latin sardines orchid flowers dapitan shrine little hong kong twin city bisaya tausug maranao">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region IX</span>
     <span class="rname">Zamboanga Peninsula</span>
-    <span class="rtag">Mindanao</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
-        Western section of Mindanao. Between <span class="kw b">Sulu Sea (N)</span> & <span class="kw b">Moro Gulf / Celebes Sea (S)</span>.<br>
+        Western Mindanao. Between <span class="kw b">Sulu Sea (N)</span> & <span class="kw b">Moro Gulf / Celebes Sea (S)</span>.<br>
         Dialects: <span class="kw b">Bisaya, Tagalog, Tausug, Maranao</span>.<br>
-        Economy: fishing & farming; rattan, basket weaving, brass works.<br>
-        Tourist spots: <span class="kw g">Santa Cruz Island</span>, <span class="kw g">Rizal Shrine</span> (Zamboanga del Norte).
+        Tourist: <span class="kw g">Santa Cruz Island</span>, <span class="kw g">Rizal Shrine</span> (Zamboanga del Norte).
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Province → Capital → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Province → Capital → Nickname</div>
       <table class="ut">
-        <thead><tr><th>Province</th><th>Capital</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>Province</th><th>Capital</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Zamboanga del Norte</td><td class="td-cap">Dipolog</td><td class="td-nick">Twin-City Province</td></tr>
           <tr><td class="td-prov">Zamboanga del Sur</td><td class="td-cap">Pagadian</td><td class="td-nick none">—</td></tr>
           <tr><td class="td-prov">Zamboanga Sibugay</td><td class="td-cap">Ipil</td><td class="td-nick none">—</td></tr>
         </tbody>
       </table>
-      <div class="pc-note">📍 Zamboanga City = <strong>Asia's Latin City / Sardines Capital / City of Flowers</strong> · Dipolog = <strong>Orchid City of PH</strong> · Pagadian = <strong>Little Hong Kong of the South</strong> · Dapitan = <strong>Shrine City of PH</strong></div>
     </div>
+    <div class="pc-note">📍 Zamboanga City = <strong>Asia's Latin City / Sardines Capital / City of Flowers</strong> · Dipolog = <strong>Orchid City of PH</strong> · Pagadian = <strong>Little Hong Kong of the South</strong> · Dapitan = <strong>Shrine City of PH</strong></div>
   </div>
 </div>
 
@@ -951,23 +935,21 @@ main {
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region X</span>
     <span class="rname">Northern Mindanao</span>
-    <span class="rtag">Mindanao</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
-        Northern section of Mindanao. Plains, hills, mountains & coastal areas.<br>
-        Modern port facilities = <span class="kw b">ideal tourism year-round</span>.<br>
+        Northern Mindanao. <span class="kw b">Ideal tourism year-round</span>.<br>
         Dialects: <span class="kw b">Bisaya, Boholano, Cebuano</span>; Binukid; Kinamigin; Maranao.<br>
-        Tourist spots: <span class="kw g">Mt. Kitanglad Range</span> (Bukidnon), <span class="kw g">Mt. Hibok-Hibok</span> (Camiguin), <span class="kw g">Maria Cristina Falls</span> (Lanao del Norte).
+        Tourist: <span class="kw g">Mt. Kitanglad</span> (Bukidnon), <span class="kw g">Mt. Hibok-Hibok</span> (Camiguin), <span class="kw g">Maria Cristina Falls</span> (Lanao del Norte).
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Province → Capital → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Province → Capital → Nickname</div>
       <table class="ut">
-        <thead><tr><th>Province</th><th>Capital</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>Province</th><th>Capital</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Bukidnon</td><td class="td-cap">Malaybalay</td><td class="td-nick">Pineapple Capital</td></tr>
           <tr><td class="td-prov">Camiguin</td><td class="td-cap">Mambajao</td><td class="td-nick">Island Born of Fire</td></tr>
@@ -976,32 +958,31 @@ main {
           <tr><td class="td-prov">Misamis Oriental</td><td class="td-cap">Cagayan de Oro</td><td class="td-nick">City of Golden Friendship</td></tr>
         </tbody>
       </table>
-      <div class="pc-note">📍 Cagayan de Oro = <strong>Whitewater Rafting Capital of PH</strong> · Iligan = <strong>City of Majestic Waterfalls / Industrial City of the South</strong> · Oroquieta = <strong>City of Good Life</strong></div>
     </div>
+    <div class="pc-note">📍 Cagayan de Oro = <strong>Whitewater Rafting Capital of PH</strong> · Iligan = <strong>City of Majestic Waterfalls / Industrial City of the South</strong></div>
   </div>
 </div>
 
 <!-- REGION XI -->
-<div class="rc mindanao-card" data-group="mindanao" data-search="region 11 davao davao de oro del norte del sur occidental oriental nabunturan tagum digos malita mati mount apo fruit basket durian pomelo mangosteen pineapple banana largest city king city music capital cebuano boholano ilonggos maguindanaos tboli bagobos">
+<div class="rc mindanao-card" data-group="mindanao" data-search="region 11 davao davao de oro del norte del sur occidental oriental nabunturan tagum digos malita mati mount apo fruit basket durian pomelo mangosteen pineapple banana largest city king city music capital cebuano boholano">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region XI</span>
     <span class="rname">Davao Region</span>
-    <span class="rtag">Mindanao</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
-        SE Mindanao. Melting pot: <span class="kw b">Cebuanos, Boholanos, Ilonggos, Maguindanaos, T'bolis, Bagobos</span>.<br>
-        <span class="kw r">"Fruit Basket of the Philippines"</span> — pomelo, mangosteen, durian, pineapples, bananas.<br>
-        Tourist spots: <span class="kw g">Mount Apo</span> (highest mountain in PH), <span class="kw g">People's Park</span>, <span class="kw g">Balut Island</span> (Davao Occidental).
+        SE Mindanao. Melting pot of ethnolinguistic groups.<br>
+        <span class="kw r">"Fruit Basket of the Philippines"</span> — durian, pomelo, mangosteen, pineapples, bananas.<br>
+        Tourist: <span class="kw g">Mount Apo</span> (highest mountain in PH), <span class="kw g">People's Park</span>.
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Province → Capital → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Province → Capital → Nickname</div>
       <table class="ut">
-        <thead><tr><th>Province</th><th>Capital</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>Province</th><th>Capital</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Davao de Oro</td><td class="td-cap">Nabunturan</td><td class="td-nick none">—</td></tr>
           <tr><td class="td-prov">Davao del Norte</td><td class="td-cap">Tagum</td><td class="td-nick">Durian & Banana Capital of PH</td></tr>
@@ -1010,32 +991,32 @@ main {
           <tr><td class="td-prov">Davao Oriental</td><td class="td-cap">Mati</td><td class="td-nick none">—</td></tr>
         </tbody>
       </table>
-      <div class="pc-note">📍 Davao City = <strong>Largest City in PH</strong> · Davao = <strong>Fruit Basket of PH / King City of the South</strong> · Tagum = <strong>Music Capital of the South</strong></div>
     </div>
+    <div class="pc-note">📍 Davao City = <strong>Largest City in PH</strong> · Davao = <strong>Fruit Basket / King City of the South</strong> · Tagum = <strong>Music Capital of the South</strong></div>
   </div>
 </div>
 
 <!-- REGION XII -->
-<div class="rc mindanao-card" data-group="mindanao" data-search="region 12 soccsksargen south cotabato cotabato sultan kudarat sarangani general santos kidapawan alabel koronadal isulan lake sebu rio grande tuna capital land of dreamweavers land of mightiest mountain">
+<div class="rc mindanao-card" data-group="mindanao" data-search="region 12 soccsksargen south cotabato cotabato sultan kudarat sarangani general santos kidapawan alabel koronadal isulan lake sebu rio grande tuna capital dreamweavers mightiest mountain">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region XII</span>
     <span class="rname">SOCCSKSARGEN</span>
-    <span class="rtag">Mindanao</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
-        S-central Mindanao. Acronym: <span class="kw r">South Cotabato, Cotabato, Sultan Kudarat, Sarangani, General Santos City</span>.<br>
+        S-central Mindanao.<br>
+        Acronym: <span class="kw r">South Cotabato, Cotabato, Sultan Kudarat, Sarangani, GenSan</span>.<br>
         <span class="kw b">Rio Grande de Mindanao</span> = <span class="kw r">2nd largest river in PH</span>.<br>
-        Tourist spots: <span class="kw g">Lake Sebu</span> (South Cotabato), cultural villages, old mosques & shrines.
+        Tourist: <span class="kw g">Lake Sebu</span> (South Cotabato).
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Province → Capital → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Province → Capital → Nickname</div>
       <table class="ut">
-        <thead><tr><th>Province</th><th>Capital</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>Province</th><th>Capital</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Cotabato</td><td class="td-cap">Kidapawan</td><td class="td-nick">Land of Mightiest Mountain</td></tr>
           <tr><td class="td-prov">Sarangani</td><td class="td-cap">Alabel</td><td class="td-nick none">—</td></tr>
@@ -1043,8 +1024,8 @@ main {
           <tr><td class="td-prov">Sultan Kudarat</td><td class="td-cap">Isulan</td><td class="td-nick none">—</td></tr>
         </tbody>
       </table>
-      <div class="pc-note">📍 General Santos City = <strong>Tuna Capital</strong></div>
     </div>
+    <div class="pc-note">📍 General Santos City = <strong>Tuna Capital</strong></div>
   </div>
 </div>
 
@@ -1053,22 +1034,21 @@ main {
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region XIII</span>
     <span class="rname">Caraga</span>
-    <span class="rtag">Mindanao</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
         Bounded by <span class="kw">Butuan Bay, Surigao Strait & Bohol Sea (N)</span>; <span class="kw">Philippine Sea (E)</span>.<br>
-        Mostly <span class="kw b">Visayan lineage</span>. Most spoken: <span class="kw b">Cebuano</span>, then Surigaonon.<br>
-        Tourist spots: <span class="kw g">Siargao</span> ("Surfing Capital"), <span class="kw g">Tinuy-an Falls</span> (Surigao del Sur), <span class="kw g">Naked, Daku & Guyam Islands</span>.
+        Mostly <span class="kw b">Visayan lineage</span>. Dominant dialect: <span class="kw b">Cebuano</span>.<br>
+        Tourist: <span class="kw g">Siargao</span> ("Surfing Capital"), <span class="kw g">Tinuy-an Falls</span>.
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Province → Capital → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Province → Capital → Nickname</div>
       <table class="ut">
-        <thead><tr><th>Province</th><th>Capital</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>Province</th><th>Capital</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Agusan del Norte</td><td class="td-cap">Cabadbaran</td><td class="td-nick none">—</td></tr>
           <tr><td class="td-prov">Agusan del Sur</td><td class="td-cap">Prosperidad</td><td class="td-nick none">—</td></tr>
@@ -1077,34 +1057,32 @@ main {
           <tr><td class="td-prov">Surigao del Sur</td><td class="td-cap">Tandag</td><td class="td-nick none">—</td></tr>
         </tbody>
       </table>
-      <div class="pc-note">📍 Siargao = <strong>Surfing Capital of the Philippines</strong></div>
     </div>
+    <div class="pc-note">📍 Siargao = <strong>Surfing Capital of the Philippines</strong></div>
   </div>
 </div>
 
 <!-- BARMM -->
-<div class="rc mindanao-card" data-group="mindanao" data-search="barmm bangsamoro autonomous region muslim mindanao basilan lanao del sur maguindanao sulu tawi-tawi lamitan marawi datu odin sinsuat buluan jolo bongao armm plebiscite 2019 bangsamoro organic law bol ra 11550 maguindanao split tausug maranao sitangkai venice of the south blue lagoon pink mosque panampangan">
+<div class="rc mindanao-card" data-group="mindanao" data-search="barmm bangsamoro autonomous region muslim mindanao basilan lanao del sur maguindanao sulu tawi-tawi lamitan marawi datu odin sinsuat buluan jolo bongao armm plebiscite 2019 bangsamoro organic law bol ra 11550 maguindanao split tausug maranao sitangkai venice of the south">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">BARMM</span>
     <span class="rname">Bangsamoro Autonomous Region in Muslim Mindanao</span>
-    <span class="rtag">Mindanao</span>
     <span class="chevron">▾</span>
   </div>
   <div class="rb">
-    <div class="col">
-      <div class="col-label">Key Facts</div>
+    <div class="facts-section">
+      <div class="section-label">Key Facts</div>
       <div class="desc">
-        <span class="kw r">Muslim-dominant</span> autonomous region in southern PH.<br>
-        <span class="kw r">Formerly ARMM</span> → renamed via <span class="kw b">plebiscite (January 2019)</span> through <span class="kw b">Bangsamoro Organic Law (BOL)</span>.<br>
+        <span class="kw r">Muslim-dominant</span> autonomous region.<br>
+        <span class="kw r">Formerly ARMM</span> → renamed via <span class="kw b">plebiscite (Jan 2019)</span> through <span class="kw b">Bangsamoro Organic Law (BOL)</span>.<br>
         Languages: <span class="kw b">Maguindanao, Tausug, Maranao</span>.<br>
-        <span class="kw r">RA 11550 (July 27, 2020)</span> — Maguindanao split into <span class="kw">del Norte</span> & <span class="kw">del Sur</span>.<br>
-        Tourist spots: <span class="kw g">Blue Lagoon & Pink Mosque</span> (Maguindanao), <span class="kw g">Panampangan Island</span> (Tawi-Tawi).
+        <span class="kw r">RA 11550 (July 27, 2020)</span> — Maguindanao split into <span class="kw">del Norte</span> & <span class="kw">del Sur</span>.
       </div>
     </div>
-    <div class="col">
-      <div class="col-label">Province → Capital → Nickname</div>
+    <div class="table-section">
+      <div class="section-label">Province → Capital → Nickname</div>
       <table class="ut">
-        <thead><tr><th>Province</th><th>Capital</th><th>Nickname / Title</th></tr></thead>
+        <thead><tr><th>Province</th><th>Capital</th><th>Nickname</th></tr></thead>
         <tbody>
           <tr><td class="td-prov">Basilan</td><td class="td-cap">Lamitan</td><td class="td-nick none">—</td></tr>
           <tr><td class="td-prov">Lanao del Sur</td><td class="td-cap">Marawi</td><td class="td-nick none">—</td></tr>
@@ -1114,44 +1092,45 @@ main {
           <tr><td class="td-prov">Tawi-Tawi</td><td class="td-cap">Bongao</td><td class="td-nick none">—</td></tr>
         </tbody>
       </table>
-      <div class="pc-note">📍 Sitangkai, Tawi-Tawi = <strong>Venice of the South</strong></div>
     </div>
+    <div class="pc-note">📍 Sitangkai, Tawi-Tawi = <strong>Venice of the South</strong></div>
   </div>
 </div>
 
 </main>
 
 <script>
-function toggleCard(card) {
-  card.classList.toggle('collapsed');
-}
+function toggleCard(card) { card.classList.toggle('collapsed'); }
+
 function filterGroup(group, btn) {
   document.querySelectorAll('.nav-btn').forEach(b =>
-    b.classList.remove('active-all','active-luzon','active-visayas','active-mindanao'));
-  btn.classList.add('active-' + group);
+    b.classList.remove('a-all','a-luzon','a-visayas','a-mindanao'));
+  btn.classList.add('a-' + group);
+
   document.querySelectorAll('.rc').forEach(card => {
     card.classList.toggle('hidden', group !== 'all' && card.dataset.group !== group);
   });
-  document.querySelectorAll('.island-group-header').forEach(h => {
-    if (group === 'all') { h.style.display = ''; return; }
-    h.style.display = h.querySelector('.igh-label').classList.contains(group) ? '' : 'none';
+  document.querySelectorAll('.grp-header').forEach(h => {
+    if (group === 'all') { h.classList.remove('hidden'); return; }
+    h.classList.toggle('hidden', h.dataset.grp !== group);
   });
 }
+
 function doSearch(q) {
   q = q.trim().toLowerCase();
   document.querySelectorAll('.rc').forEach(card => {
-    const text = (card.dataset.search || '') + ' ' + card.innerText.toLowerCase();
-    card.classList.toggle('hidden', q.length > 0 && !text.includes(q));
-    if (q.length > 0 && text.includes(q)) card.classList.remove('collapsed');
+    const hay = (card.dataset.search || '') + ' ' + card.innerText.toLowerCase();
+    const hide = q.length > 0 && !hay.includes(q);
+    card.classList.toggle('hidden', hide);
+    if (!hide && q.length > 0) card.classList.remove('collapsed');
   });
 }
-function expandAll() {
-  document.querySelectorAll('.rc:not(.hidden)').forEach(c => c.classList.remove('collapsed'));
-}
-function collapseAll() {
-  document.querySelectorAll('.rc:not(.hidden)').forEach(c => c.classList.add('collapsed'));
-}
-document.querySelectorAll('.kw').forEach(k => k.addEventListener('click', () => k.classList.toggle('on')));
+
+function expandAll()  { document.querySelectorAll('.rc:not(.hidden)').forEach(c => c.classList.remove('collapsed')); }
+function collapseAll(){ document.querySelectorAll('.rc:not(.hidden)').forEach(c => c.classList.add('collapsed')); }
+
+document.querySelectorAll('.kw').forEach(k =>
+  k.addEventListener('click', () => k.classList.toggle('on')));
 </script>
 </body>
 </html>
