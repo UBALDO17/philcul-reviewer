@@ -4,146 +4,115 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PH Regions Reviewer – Handout 03</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #0e0f14;
-  --surface: #16181f;
-  --surface2: #1e2029;
-  --border: #2a2d3a;
-  --border2: #353848;
-  --text: #e8e6f0;
-  --muted: #7a7d94;
-  --faint: #3a3d4e;
+  --bg:      #fafaf8;
+  --white:   #ffffff;
+  --ink:     #1a1a18;
+  --ink2:    #3d3d38;
+  --muted:   #888880;
+  --faint:   #e8e8e2;
+  --line:    #ebebE4;
 
-  --gold: #f5c842;
-  --coral: #ff6b5b;
-  --teal: #3dd9b3;
-  --lavender: #a78bfa;
-  --sky: #60c0ff;
+  --luzon:     #2563a8;
+  --luzon-bg:  #f0f5fc;
+  --luzon-bd:  #ccdaf5;
 
-  --luzon: #3dd9b3;
-  --visayas: #a78bfa;
-  --mindanao: #ff6b5b;
+  --visayas:   #7c3aaa;
+  --visayas-bg:#f7f2fc;
+  --visayas-bd:#ddc8f5;
+
+  --mindanao:   #c0392b;
+  --mindanao-bg:#fdf2f1;
+  --mindanao-bd:#f5c8c4;
+
+  --gold:    #b8860b;
+  --gold-bg: #fdf8ec;
+  --gold-bd: #ead99a;
+
+  --green:   #1a6b3a;
+  --sky:     #1a5fa8;
+  --coral:   #c0392b;
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   background: var(--bg);
-  color: var(--text);
+  color: var(--ink);
   min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* ── NOISE TEXTURE OVERLAY ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.6;
+  line-height: 1.5;
 }
 
 /* ── HEADER ── */
 header {
-  position: relative;
-  padding: 48px 40px 36px;
-  border-bottom: 1px solid var(--border);
+  background: var(--white);
+  border-bottom: 1.5px solid var(--line);
+  padding: 40px 44px 32px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 20px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #13141c 0%, #0e0f14 60%);
+  gap: 16px;
 }
-
-header::after {
-  content: 'PH';
-  position: absolute;
-  right: -20px;
-  top: -30px;
-  font-family: 'Playfair Display', serif;
-  font-size: 200px;
-  font-weight: 900;
-  color: rgba(245,200,66,0.04);
-  pointer-events: none;
-  letter-spacing: -10px;
-  line-height: 1;
-  user-select: none;
-}
-
-.header-left {}
 
 .htag {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'DM Mono', monospace;
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.htag::before {
-  content: '';
-  display: inline-block;
-  width: 24px;
-  height: 1px;
-  background: var(--gold);
+  color: var(--muted);
+  margin-bottom: 10px;
 }
 
 .htitle {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(28px, 5vw, 52px);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -1px;
-  color: var(--text);
+  font-family: 'Lora', serif;
+  font-size: clamp(24px, 4vw, 42px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+  color: var(--ink);
 }
 .htitle em {
   font-style: italic;
-  color: var(--gold);
+  color: var(--luzon);
 }
 
 .hsub {
-  margin-top: 10px;
+  margin-top: 8px;
   font-size: 12px;
   color: var(--muted);
-  letter-spacing: 1.5px;
   font-weight: 400;
+  letter-spacing: 0.5px;
 }
 
 .hbadge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  padding: 8px 18px;
-  border-radius: 4px;
+  border: 1.5px solid var(--ink);
+  color: var(--ink);
+  padding: 7px 16px;
+  border-radius: 3px;
   align-self: flex-start;
 }
 
-/* ── NAV TABS ── */
+/* ── NAV ── */
 .nav-bar {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(14,15,20,0.92);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  padding: 0 40px;
+  background: rgba(250,250,248,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 0 44px;
   display: flex;
   align-items: center;
   gap: 0;
@@ -153,194 +122,177 @@ header::after {
 .nav-bar::-webkit-scrollbar { display: none; }
 
 .nav-btn {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--muted);
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
-  padding: 14px 16px;
+  padding: 13px 14px;
   cursor: pointer;
-  transition: color .2s, border-color .2s;
+  transition: color .15s, border-color .15s;
   white-space: nowrap;
 }
-.nav-btn:hover { color: var(--text); }
-.nav-btn.active-luzon { color: var(--luzon); border-bottom-color: var(--luzon); }
-.nav-btn.active-visayas { color: var(--visayas); border-bottom-color: var(--visayas); }
+.nav-btn:hover { color: var(--ink); }
+.nav-btn.active-all      { color: var(--ink);      border-bottom-color: var(--ink); }
+.nav-btn.active-luzon    { color: var(--luzon);    border-bottom-color: var(--luzon); }
+.nav-btn.active-visayas  { color: var(--visayas);  border-bottom-color: var(--visayas); }
 .nav-btn.active-mindanao { color: var(--mindanao); border-bottom-color: var(--mindanao); }
-.nav-btn.active-all { color: var(--gold); border-bottom-color: var(--gold); }
-
-.nav-sep { width: 1px; height: 20px; background: var(--border); margin: 0 8px; flex-shrink: 0; }
+.nav-sep { width: 1px; height: 16px; background: var(--line); margin: 0 6px; flex-shrink: 0; }
 
 /* ── SEARCH ── */
 .search-bar {
-  padding: 14px 40px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  padding: 12px 44px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+  flex-wrap: wrap;
 }
-.search-input {
-  flex: 1;
-  max-width: 420px;
-  background: var(--bg);
-  border: 1px solid var(--border2);
-  border-radius: 8px;
-  color: var(--text);
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 13px;
-  padding: 9px 14px 9px 38px;
-  outline: none;
-  transition: border-color .2s;
-  position: relative;
-}
-.search-input:focus { border-color: var(--gold); }
-.search-wrap {
-  position: relative;
-  flex: 1;
-  max-width: 420px;
-}
+.search-wrap { position: relative; flex: 1; max-width: 400px; }
 .search-icon {
   position: absolute;
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--muted);
-  font-size: 14px;
+  font-size: 15px;
   pointer-events: none;
 }
-.search-input { width: 100%; max-width: none; }
+.search-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  padding: 8px 14px 8px 36px;
+  outline: none;
+  transition: border-color .15s;
+}
+.search-input:focus { border-color: var(--luzon); }
+.search-input::placeholder { color: var(--muted); }
 
 .legend {
   display: flex;
-  gap: 18px;
+  gap: 16px;
   flex-wrap: wrap;
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
   color: var(--muted);
   margin-left: auto;
 }
-.li { display: flex; align-items: center; gap: 6px; }
-.ld { width: 8px; height: 8px; border-radius: 50%; }
+.li { display: flex; align-items: center; gap: 5px; }
+.ld { width: 7px; height: 7px; border-radius: 50%; }
 
 /* ── MAIN ── */
 main {
-  padding: 32px 40px 80px;
-  max-width: 1280px;
+  padding: 28px 44px 80px;
+  max-width: 1240px;
   margin: 0 auto;
-  position: relative;
-  z-index: 1;
 }
 
-/* ── ISLAND GROUP HEADER ── */
+/* ── ISLAND DIVIDER ── */
 .island-group-header {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin: 40px 0 20px;
+  gap: 14px;
+  margin: 36px 0 16px;
   opacity: 0;
-  animation: fadeUp 0.5s forwards;
+  animation: fadeUp .4s forwards;
 }
 .island-group-header:first-of-type { margin-top: 0; }
-.igh-line { flex: 1; height: 1px; background: var(--border); }
+.igh-line { flex: 1; height: 1px; background: var(--line); }
 .igh-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
   font-weight: 500;
-  letter-spacing: 4px;
+  letter-spacing: 3.5px;
   text-transform: uppercase;
-  padding: 5px 14px;
+  padding: 4px 12px;
   border-radius: 20px;
   border: 1px solid;
 }
-.igh-label.luzon { color: var(--luzon); border-color: var(--luzon); background: rgba(61,217,179,0.07); }
-.igh-label.visayas { color: var(--visayas); border-color: var(--visayas); background: rgba(167,139,250,0.07); }
-.igh-label.mindanao { color: var(--mindanao); border-color: var(--mindanao); background: rgba(255,107,91,0.08); }
+.igh-label.luzon    { color: var(--luzon);    border-color: var(--luzon-bd);    background: var(--luzon-bg); }
+.igh-label.visayas  { color: var(--visayas);  border-color: var(--visayas-bd);  background: var(--visayas-bg); }
+.igh-label.mindanao { color: var(--mindanao); border-color: var(--mindanao-bd); background: var(--mindanao-bg); }
 
 /* ── REGION CARD ── */
 .rc {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
   overflow: hidden;
-  margin-bottom: 20px;
-  transition: border-color .2s, transform .2s, box-shadow .2s;
+  margin-bottom: 14px;
+  transition: border-color .15s, box-shadow .15s, transform .15s;
   opacity: 0;
-  animation: fadeUp 0.5s forwards;
+  animation: fadeUp .4s forwards;
 }
 .rc:hover {
-  border-color: var(--border2);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  border-color: #d0d0c8;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  transform: translateY(-1px);
 }
 
+/* ── CARD HEADER ── */
 .rh {
-  padding: 14px 20px;
+  padding: 12px 18px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  position: relative;
-  overflow: hidden;
+  gap: 10px;
   cursor: pointer;
   user-select: none;
+  border-bottom: 1px solid var(--line);
+  transition: background .15s;
 }
-.rh::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  opacity: 0.07;
-  transition: opacity .2s;
-}
-.rc:hover .rh::before { opacity: 0.11; }
+.luzon-card    .rh { background: var(--luzon-bg); border-bottom-color: var(--luzon-bd); }
+.visayas-card  .rh { background: var(--visayas-bg); border-bottom-color: var(--visayas-bd); }
+.mindanao-card .rh { background: var(--mindanao-bg); border-bottom-color: var(--mindanao-bd); }
+.rc.collapsed  .rh { border-bottom: none; }
 
-.luzon-card .rh { background: rgba(61,217,179,0.06); border-bottom: 1px solid rgba(61,217,179,0.15); }
-.luzon-card .rh::before { background: linear-gradient(90deg, var(--luzon), transparent); }
-.visayas-card .rh { background: rgba(167,139,250,0.06); border-bottom: 1px solid rgba(167,139,250,0.15); }
-.visayas-card .rh::before { background: linear-gradient(90deg, var(--visayas), transparent); }
-.mindanao-card .rh { background: rgba(255,107,91,0.06); border-bottom: 1px solid rgba(255,107,91,0.15); }
-.mindanao-card .rh::before { background: linear-gradient(90deg, var(--mindanao), transparent); }
+.rh:hover { filter: brightness(0.975); }
 
 .rnum {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
   font-weight: 500;
   letter-spacing: 1.5px;
-  padding: 4px 10px;
-  border-radius: 4px;
+  padding: 3px 9px;
+  border-radius: 3px;
   white-space: nowrap;
   flex-shrink: 0;
+  border: 1px solid;
 }
-.luzon-card .rnum { background: rgba(61,217,179,0.15); color: var(--luzon); }
-.visayas-card .rnum { background: rgba(167,139,250,0.15); color: var(--visayas); }
-.mindanao-card .rnum { background: rgba(255,107,91,0.15); color: var(--mindanao); }
+.luzon-card    .rnum { color: var(--luzon);    background: rgba(37,99,168,0.08); border-color: var(--luzon-bd); }
+.visayas-card  .rnum { color: var(--visayas);  background: rgba(124,58,170,0.08); border-color: var(--visayas-bd); }
+.mindanao-card .rnum { color: var(--mindanao); background: rgba(192,57,43,0.08);  border-color: var(--mindanao-bd); }
 
 .rname {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: 0.2px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
 }
-
 .rtag {
   margin-left: auto;
   font-size: 10px;
   font-weight: 500;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  opacity: 0.35;
+  color: var(--muted);
+  opacity: 0.6;
   white-space: nowrap;
 }
-
 .chevron {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--muted);
-  transition: transform .25s;
+  transition: transform .2s;
   flex-shrink: 0;
 }
 .rc.collapsed .chevron { transform: rotate(-90deg); }
@@ -349,166 +301,142 @@ main {
 .rb {
   display: grid;
   grid-template-columns: 1fr 1.7fr;
-  overflow: hidden;
   max-height: 2000px;
-  transition: max-height .35s cubic-bezier(0.4,0,0.2,1);
+  transition: max-height .3s cubic-bezier(0.4,0,0.2,1);
+  overflow: hidden;
 }
 .rc.collapsed .rb { max-height: 0; }
 
-.col { padding: 20px 20px 22px; }
-.col:first-child { border-right: 1px solid var(--border); }
+.col { padding: 18px 18px 20px; }
+.col:first-child { border-right: 1px solid var(--line); }
 
 .col-label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'DM Mono', monospace;
   font-size: 9px;
   font-weight: 500;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--line);
 }
 
 /* ── KEY FACTS ── */
 .desc {
-  font-size: 13px;
-  line-height: 1.75;
-  color: #c4c2d0;
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: var(--ink2);
 }
-.desc br { display: block; margin-bottom: 2px; }
 
 .kw {
   display: inline-block;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  font-weight: 400;
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  border-radius: 4px;
-  padding: 2px 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  background: var(--bg);
+  border: 1px solid var(--faint);
+  border-radius: 3px;
+  padding: 1px 7px;
   margin: 2px 2px 2px 0;
   cursor: pointer;
-  transition: all .15s;
+  transition: all .12s;
   vertical-align: middle;
-  color: #b8b6c6;
+  color: var(--ink2);
 }
-.kw:hover { background: var(--border2); color: var(--text); }
-.kw.on { background: var(--faint); border-color: var(--gold); color: var(--gold); }
+.kw:hover { background: var(--faint); border-color: #ccc; }
 
 .kw.r { border-left: 2.5px solid var(--coral); }
 .kw.b { border-left: 2.5px solid var(--sky); }
-.kw.g { border-left: 2.5px solid var(--teal); }
-.kw.on.r { background: rgba(255,107,91,0.12); border-color: var(--coral); color: var(--coral); }
-.kw.on.b { background: rgba(96,192,255,0.12); border-color: var(--sky); color: var(--sky); }
-.kw.on.g { background: rgba(61,217,179,0.12); border-color: var(--teal); color: var(--teal); }
+.kw.g { border-left: 2.5px solid var(--green); }
+
+.kw.on   { background: var(--faint); border-color: var(--ink); color: var(--ink); font-weight: 500; }
+.kw.on.r { background: #fdf0ee; border-color: var(--coral); border-left-width: 2.5px; color: var(--coral); }
+.kw.on.b { background: #eef4fd; border-color: var(--sky);   border-left-width: 2.5px; color: var(--sky); }
+.kw.on.g { background: #edf7f1; border-color: var(--green); border-left-width: 2.5px; color: var(--green); }
 
 /* ── TABLE ── */
-.ut {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 12px;
-}
-.ut thead tr { background: rgba(255,255,255,0.02); }
+.ut { width: 100%; border-collapse: collapse; font-size: 12px; }
+.ut thead tr { background: var(--bg); }
 .ut thead th {
-  padding: 8px 12px;
+  padding: 7px 12px;
   text-align: left;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'DM Mono', monospace;
   font-size: 9px;
   font-weight: 500;
-  letter-spacing: 2.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--muted);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--line);
 }
-.ut tbody tr {
-  border-bottom: 1px solid rgba(42,45,58,0.6);
-  transition: background .12s;
-}
+.ut tbody tr { border-bottom: 1px solid var(--line); transition: background .1s; }
 .ut tbody tr:last-child { border-bottom: none; }
-.ut tbody tr:hover { background: rgba(255,255,255,0.025); }
-.ut td { padding: 8px 12px; vertical-align: top; }
+.ut tbody tr:hover { background: var(--bg); }
+.ut td { padding: 7px 12px; vertical-align: top; }
 
-.td-prov {
-  font-weight: 600;
-  color: var(--text);
-  width: 30%;
-  font-size: 12px;
-}
-.td-cap {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--muted);
-  width: 26%;
-}
-.td-nick {
-  font-size: 11.5px;
-  font-weight: 500;
-  font-style: italic;
-}
-.luzon-card .td-nick { color: rgba(61,217,179,0.85); }
-.visayas-card .td-nick { color: rgba(167,139,250,0.85); }
-.mindanao-card .td-nick { color: rgba(255,107,91,0.85); }
-.td-nick.none { color: var(--faint); font-style: normal; font-weight: 400; }
+.td-prov { font-weight: 600; color: var(--ink); width: 30%; font-size: 12px; }
+.td-cap  { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--muted); width: 26%; }
+.td-nick { font-size: 11.5px; font-style: italic; font-weight: 500; }
+
+.luzon-card    .td-nick { color: var(--luzon); }
+.visayas-card  .td-nick { color: var(--visayas); }
+.mindanao-card .td-nick { color: var(--mindanao); }
+.td-nick.none { color: var(--faint); font-style: normal; font-weight: 400; font-size: 11px; }
 
 /* ── NOTE ── */
 .pc-note {
   font-size: 11px;
-  color: #c4a832;
+  color: var(--gold);
   font-weight: 500;
   margin-top: 12px;
-  line-height: 1.6;
-  padding: 9px 12px;
-  background: rgba(245,200,66,0.05);
-  border-radius: 6px;
-  border-left: 2px solid var(--gold);
+  line-height: 1.65;
+  padding: 8px 12px;
+  background: var(--gold-bg);
+  border-radius: 5px;
+  border-left: 2px solid var(--gold-bd);
 }
-.pc-note strong { color: var(--gold); }
+.pc-note strong { color: var(--gold); font-weight: 700; }
 
-/* ── HIDE/SHOW ── */
+/* ── HIDDEN ── */
 .rc.hidden { display: none; }
 
-/* ── ANIMATIONS ── */
+/* ── ANIMATION ── */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
-.rc:nth-child(1) { animation-delay: 0.05s; }
-.rc:nth-child(2) { animation-delay: 0.10s; }
-.rc:nth-child(3) { animation-delay: 0.15s; }
-.rc:nth-child(4) { animation-delay: 0.20s; }
-.rc:nth-child(5) { animation-delay: 0.25s; }
-.rc:nth-child(6) { animation-delay: 0.30s; }
-.rc:nth-child(7) { animation-delay: 0.35s; }
-.rc:nth-child(8) { animation-delay: 0.40s; }
-.rc:nth-child(9) { animation-delay: 0.45s; }
+.rc:nth-child(1) { animation-delay: .04s; }
+.rc:nth-child(2) { animation-delay: .08s; }
+.rc:nth-child(3) { animation-delay: .12s; }
+.rc:nth-child(4) { animation-delay: .16s; }
+.rc:nth-child(5) { animation-delay: .20s; }
+.rc:nth-child(6) { animation-delay: .24s; }
+.rc:nth-child(7) { animation-delay: .28s; }
+.rc:nth-child(8) { animation-delay: .32s; }
+.island-group-header { animation-delay: .02s; }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 740px) {
-  header { padding: 32px 20px 24px; }
-  main { padding: 24px 16px 60px; }
-  .nav-bar { padding: 0 16px; }
-  .search-bar { padding: 12px 16px; flex-wrap: wrap; }
-  .legend { display: none; }
+@media (max-width: 720px) {
+  header, main { padding-left: 18px; padding-right: 18px; }
+  .nav-bar, .search-bar { padding-left: 18px; padding-right: 18px; }
   .rb { grid-template-columns: 1fr; }
-  .col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+  .col:first-child { border-right: none; border-bottom: 1px solid var(--line); }
+  .legend { display: none; }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-left">
+  <div>
     <div class="htag">TH2205 · Handout 03 · Keyword Reviewer</div>
-    <div class="htitle">Regions of the<br><em>Philippines</em></div>
-    <div class="hsub">NCR · CAR · Regions I – XIII · BARMM</div>
+    <div class="htitle">Regions of the <em>Philippines</em></div>
+    <div class="hsub">NCR · CAR · Regions I–XIII · BARMM</div>
   </div>
   <div class="hbadge">Handout 03</div>
 </header>
 
 <nav class="nav-bar">
-  <button class="nav-btn active-all" onclick="filterGroup('all', this)">All Regions</button>
+  <button class="nav-btn active-all" onclick="filterGroup('all', this)">All</button>
   <div class="nav-sep"></div>
   <button class="nav-btn" onclick="filterGroup('luzon', this)">Luzon</button>
   <button class="nav-btn" onclick="filterGroup('visayas', this)">Visayas</button>
@@ -526,14 +454,14 @@ main {
   <div class="legend">
     <div class="li"><div class="ld" style="background:var(--sky)"></div>Heritage</div>
     <div class="li"><div class="ld" style="background:var(--coral)"></div>Important</div>
-    <div class="li"><div class="ld" style="background:var(--teal)"></div>Nature / Tourism</div>
-    <div class="li" style="font-size:10px;color:var(--muted)">· Click keywords to highlight</div>
+    <div class="li"><div class="ld" style="background:var(--green)"></div>Nature</div>
+    <div class="li" style="color:var(--muted)">· Click to highlight</div>
   </div>
 </div>
 
 <main>
 
-<!-- ═══════════ LUZON ═══════════ -->
+<!-- ═══ LUZON ═══ -->
 <div class="island-group-header">
   <div class="igh-line"></div>
   <span class="igh-label luzon">Luzon</span>
@@ -590,7 +518,7 @@ main {
 </div>
 
 <!-- CAR -->
-<div class="rc luzon-card" data-group="luzon" data-search="car cordillera administrative region abra apayao benguet ifugao kalinga mountain province baguio igorot banaue rice terraces sumaguing cave la trinidad">
+<div class="rc luzon-card" data-group="luzon" data-search="car cordillera administrative region abra apayao benguet ifugao kalinga mountain province baguio igorot banaue rice terraces sumaguing cave la trinidad salad bowl summer capital city of pines strawberry rose capital">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">CAR</span>
     <span class="rname">Cordillera Administrative Region</span>
@@ -627,7 +555,7 @@ main {
 </div>
 
 <!-- REGION I -->
-<div class="rc luzon-card" data-group="luzon" data-search="region 1 ilocos norte sur la union pangasinan laoag vigan san fernando lingayen ilocano pangasinense paoay church hundred islands">
+<div class="rc luzon-card" data-group="luzon" data-search="region 1 ilocos norte sur la union pangasinan laoag vigan san fernando lingayen ilocano pangasinense paoay church hundred islands heritage city surfing capital bangus most romantic">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region I</span>
     <span class="rname">Ilocos Region</span>
@@ -661,7 +589,7 @@ main {
 </div>
 
 <!-- REGION II -->
-<div class="rc luzon-card" data-group="luzon" data-search="region 2 cagayan valley batanes cagayan isabela nueva vizcaya quirino basco tuguegarao ilagan bayombong cabarroguis batan island callao cave">
+<div class="rc luzon-card" data-group="luzon" data-search="region 2 cagayan valley batanes cagayan isabela nueva vizcaya quirino basco tuguegarao ilagan bayombong cabarroguis batan island callao cave land of true insulars watershed forest heartland">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region II</span>
     <span class="rname">Cagayan Valley</span>
@@ -695,7 +623,7 @@ main {
 </div>
 
 <!-- REGION III -->
-<div class="rc luzon-card" data-group="luzon" data-search="region 3 central luzon aurora bataan bulacan nueva ecija pampanga tarlac zambales baler balanga malolos palayan san fernando rice granary clark international airport mt samat">
+<div class="rc luzon-card" data-group="luzon" data-search="region 3 central luzon aurora bataan bulacan nueva ecija pampanga tarlac zambales baler balanga malolos palayan san fernando rice granary clark international airport mt samat arayat tagalog kapampangan lantern capital culinary melting pot">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region III</span>
     <span class="rname">Central Luzon</span>
@@ -733,7 +661,7 @@ main {
 </div>
 
 <!-- REGION IV-A -->
-<div class="rc luzon-card" data-group="luzon" data-search="region 4a calabarzon batangas cavite laguna quezon rizal imus santa cruz lucena antipolo pagsanjan falls taal lake volcano industrial powerhouse">
+<div class="rc luzon-card" data-group="luzon" data-search="region 4a calabarzon batangas cavite laguna quezon rizal imus santa cruz lucena antipolo pagsanjan falls taal lake volcano industrial powerhouse tagalog arts capital garments nudibranch pilgrimage">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region IV-A</span>
     <span class="rname">CALABARZON</span>
@@ -769,7 +697,7 @@ main {
 </div>
 
 <!-- REGION IV-B -->
-<div class="rc luzon-card" data-group="luzon" data-search="region 4b mimaropa marinduque occidental mindoro oriental mindoro palawan romblon boac mamburao calapan puerto princesa marble capital heart philippines tabon caves subterranean river">
+<div class="rc luzon-card" data-group="luzon" data-search="region 4b mimaropa marinduque occidental mindoro oriental mindoro palawan romblon boac mamburao calapan puerto princesa marble capital heart philippines tabon caves subterranean river poctoy white beach el nido heaven on earth">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region IV-B</span>
     <span class="rname">MIMAROPA</span>
@@ -802,7 +730,7 @@ main {
 </div>
 
 <!-- REGION V -->
-<div class="rc luzon-card" data-group="luzon" data-search="region 5 bicol bicolandia albay camarines norte sur catanduanes masbate sorsogon legazpi daet pili virac mayon volcano cagsawa caramoan whale shark donsol">
+<div class="rc luzon-card" data-group="luzon" data-search="region 5 bicol bicolandia albay camarines norte sur catanduanes masbate sorsogon legazpi daet pili virac mayon volcano cagsawa caramoan whale shark donsol howling wind kasanggayahan">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region V</span>
     <span class="rname">Bicol Region (Bicolandia)</span>
@@ -837,7 +765,7 @@ main {
   </div>
 </div>
 
-<!-- ═══════════ VISAYAS ═══════════ -->
+<!-- ═══ VISAYAS ═══ -->
 <div class="island-group-header">
   <div class="igh-line"></div>
   <span class="igh-label visayas">Visayas</span>
@@ -845,7 +773,7 @@ main {
 </div>
 
 <!-- REGION VI -->
-<div class="rc visayas-card" data-group="visayas" data-search="region 6 western visayas aklan antique capiz guimaras iloilo kalibo san jose roxas jordan iloilo city ati-atihan boracay miagao church hiligaynon kinaray-a aklanon">
+<div class="rc visayas-card" data-group="visayas" data-search="region 6 western visayas aklan antique capiz guimaras iloilo kalibo san jose roxas jordan iloilo city ati-atihan boracay miagao church hiligaynon kinaray-a aklanon oldest province mango capital beach capital first queen city">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region VI</span>
     <span class="rname">Western Visayas</span>
@@ -880,7 +808,7 @@ main {
 </div>
 
 <!-- NIR -->
-<div class="rc visayas-card" data-group="visayas" data-search="nir negros island region negros occidental negros oriental siquijor bacolod dumaguete sugarbowl city of smiles city of gentle people island of fire apo island mabinay caving capital">
+<div class="rc visayas-card" data-group="visayas" data-search="nir negros island region negros occidental negros oriental siquijor bacolod dumaguete sugarbowl city of smiles gentle people island of fire apo island mabinay caving capital hiligaynon cebuano sugarcane">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">NIR</span>
     <span class="rname">Negros Island Region</span>
@@ -913,7 +841,7 @@ main {
 </div>
 
 <!-- REGION VII -->
-<div class="rc visayas-card" data-group="visayas" data-search="region 7 central visayas bohol cebu tagbilaran cebu city chocolate hills magellan's cross cebuano oldest city diving sites">
+<div class="rc visayas-card" data-group="visayas" data-search="region 7 central visayas bohol cebu tagbilaran cebu city chocolate hills magellan's cross cebuano oldest city diving sites 16th century peace friendship gateway">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region VII</span>
     <span class="rname">Central Visayas</span>
@@ -944,7 +872,7 @@ main {
 </div>
 
 <!-- REGION VIII -->
-<div class="rc visayas-card" data-group="visayas" data-search="region 8 eastern visayas biliran eastern samar leyte northern samar samar southern leyte naval borongan tacloban catarman catbalogan maasin san juanico bridge waray-waray red beach homonhon">
+<div class="rc visayas-card" data-group="visayas" data-search="region 8 eastern visayas biliran eastern samar leyte northern samar samar southern leyte naval borongan tacloban catarman catbalogan maasin san juanico bridge waray-waray red beach homonhon sambawan shipyard gateway">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region VIII</span>
     <span class="rname">Eastern Visayas</span>
@@ -978,7 +906,7 @@ main {
   </div>
 </div>
 
-<!-- ═══════════ MINDANAO ═══════════ -->
+<!-- ═══ MINDANAO ═══ -->
 <div class="island-group-header">
   <div class="igh-line"></div>
   <span class="igh-label mindanao">Mindanao</span>
@@ -986,7 +914,7 @@ main {
 </div>
 
 <!-- REGION IX -->
-<div class="rc mindanao-card" data-group="mindanao" data-search="region 9 zamboanga peninsula zamboanga del norte del sur sibugay dipolog pagadian ipil santa cruz island zamboanga city asia latin sardines orchid city dapitan shrine city">
+<div class="rc mindanao-card" data-group="mindanao" data-search="region 9 zamboanga peninsula zamboanga del norte del sur sibugay dipolog pagadian ipil santa cruz island zamboanga city asia latin sardines orchid city flowers dapitan shrine little hong kong twin city bisaya tausug maranao">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region IX</span>
     <span class="rname">Zamboanga Peninsula</span>
@@ -999,7 +927,7 @@ main {
       <div class="desc">
         Western section of Mindanao. Between <span class="kw b">Sulu Sea (N)</span> & <span class="kw b">Moro Gulf / Celebes Sea (S)</span>.<br>
         Dialects: <span class="kw b">Bisaya, Tagalog, Tausug, Maranao</span>.<br>
-        Economy: fishing & farming; home industries: rattan, basket weaving, brass works.<br>
+        Economy: fishing & farming; rattan, basket weaving, brass works.<br>
         Tourist spots: <span class="kw g">Santa Cruz Island</span>, <span class="kw g">Rizal Shrine</span> (Zamboanga del Norte).
       </div>
     </div>
@@ -1019,7 +947,7 @@ main {
 </div>
 
 <!-- REGION X -->
-<div class="rc mindanao-card" data-group="mindanao" data-search="region 10 northern mindanao bukidnon camiguin lanao del norte misamis occidental oriental malaybalay mambajao tubod oroquieta cagayan de oro mt kitanglad maria cristina falls pineapple island born of fire whitewater rafting">
+<div class="rc mindanao-card" data-group="mindanao" data-search="region 10 northern mindanao bukidnon camiguin lanao del norte misamis occidental oriental malaybalay mambajao tubod oroquieta cagayan de oro mt kitanglad maria cristina falls pineapple island born of fire whitewater rafting christmas symbols golden friendship iligan waterfalls">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region X</span>
     <span class="rname">Northern Mindanao</span>
@@ -1054,7 +982,7 @@ main {
 </div>
 
 <!-- REGION XI -->
-<div class="rc mindanao-card" data-group="mindanao" data-search="region 11 davao davao de oro davao del norte del sur occidental oriental nabunturan tagum digos malita mati mount apo fruit basket durian pomelo mangosteen pineapple banana largest city">
+<div class="rc mindanao-card" data-group="mindanao" data-search="region 11 davao davao de oro del norte del sur occidental oriental nabunturan tagum digos malita mati mount apo fruit basket durian pomelo mangosteen pineapple banana largest city king city music capital cebuano boholano ilonggos maguindanaos tboli bagobos">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region XI</span>
     <span class="rname">Davao Region</span>
@@ -1088,7 +1016,7 @@ main {
 </div>
 
 <!-- REGION XII -->
-<div class="rc mindanao-card" data-group="mindanao" data-search="region 12 soccsksargen south cotabato cotabato sultan kudarat sarangani general santos kidapawan alabel koronadal isulan lake sebu rio grande tuna capital land of dreamweavers">
+<div class="rc mindanao-card" data-group="mindanao" data-search="region 12 soccsksargen south cotabato cotabato sultan kudarat sarangani general santos kidapawan alabel koronadal isulan lake sebu rio grande tuna capital land of dreamweavers land of mightiest mountain">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region XII</span>
     <span class="rname">SOCCSKSARGEN</span>
@@ -1121,7 +1049,7 @@ main {
 </div>
 
 <!-- REGION XIII -->
-<div class="rc mindanao-card" data-group="mindanao" data-search="region 13 caraga agusan del norte del sur dinagat islands surigao del norte del sur cabadbaran prosperidad san jose surigao city tandag siargao surfing capital tinuy-an falls cebuano surigaonon">
+<div class="rc mindanao-card" data-group="mindanao" data-search="region 13 caraga agusan del norte del sur dinagat islands surigao del norte del sur cabadbaran prosperidad san jose surigao city tandag siargao surfing capital tinuy-an falls mystical island province of love cebuano surigaonon">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">Region XIII</span>
     <span class="rname">Caraga</span>
@@ -1155,7 +1083,7 @@ main {
 </div>
 
 <!-- BARMM -->
-<div class="rc mindanao-card" data-group="mindanao" data-search="barmm bangsamoro autonomous region muslim mindanao basilan lanao del sur maguindanao sulu tawi-tawi lamitan marawi datu odin sinsuat buluan jolo bongao armm plebiscite bangsamoro organic law ra 11550 maguindanao split tausug maranao sitangkai venice of the south">
+<div class="rc mindanao-card" data-group="mindanao" data-search="barmm bangsamoro autonomous region muslim mindanao basilan lanao del sur maguindanao sulu tawi-tawi lamitan marawi datu odin sinsuat buluan jolo bongao armm plebiscite 2019 bangsamoro organic law bol ra 11550 maguindanao split tausug maranao sitangkai venice of the south blue lagoon pink mosque panampangan">
   <div class="rh" onclick="toggleCard(this.parentElement)">
     <span class="rnum">BARMM</span>
     <span class="rname">Bangsamoro Autonomous Region in Muslim Mindanao</span>
@@ -1194,32 +1122,21 @@ main {
 </main>
 
 <script>
-// Toggle card collapse
 function toggleCard(card) {
   card.classList.toggle('collapsed');
 }
-
-// Filter by island group
 function filterGroup(group, btn) {
-  document.querySelectorAll('.nav-btn').forEach(b => {
-    b.classList.remove('active-all','active-luzon','active-visayas','active-mindanao');
-  });
+  document.querySelectorAll('.nav-btn').forEach(b =>
+    b.classList.remove('active-all','active-luzon','active-visayas','active-mindanao'));
   btn.classList.add('active-' + group);
-
   document.querySelectorAll('.rc').forEach(card => {
-    if (group === 'all') {
-      card.classList.remove('hidden');
-    } else {
-      card.classList.toggle('hidden', card.dataset.group !== group);
-    }
+    card.classList.toggle('hidden', group !== 'all' && card.dataset.group !== group);
   });
   document.querySelectorAll('.island-group-header').forEach(h => {
     if (group === 'all') { h.style.display = ''; return; }
     h.style.display = h.querySelector('.igh-label').classList.contains(group) ? '' : 'none';
   });
 }
-
-// Search
 function doSearch(q) {
   q = q.trim().toLowerCase();
   document.querySelectorAll('.rc').forEach(card => {
@@ -1227,20 +1144,13 @@ function doSearch(q) {
     card.classList.toggle('hidden', q.length > 0 && !text.includes(q));
     if (q.length > 0 && text.includes(q)) card.classList.remove('collapsed');
   });
-  document.querySelectorAll('.island-group-header').forEach(h => {
-    h.style.display = '';
-  });
 }
-
-// Expand / collapse all
 function expandAll() {
   document.querySelectorAll('.rc:not(.hidden)').forEach(c => c.classList.remove('collapsed'));
 }
 function collapseAll() {
   document.querySelectorAll('.rc:not(.hidden)').forEach(c => c.classList.add('collapsed'));
 }
-
-// Keyword highlight toggle
 document.querySelectorAll('.kw').forEach(k => k.addEventListener('click', () => k.classList.toggle('on')));
 </script>
 </body>
