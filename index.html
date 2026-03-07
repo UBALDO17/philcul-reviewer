@@ -1,0 +1,2174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philippine Tourism Reviewer</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ocean: #0a4f6e;
+            --sky: #1a8fb5;
+            --sand: #f5e6c8;
+            --coral: #e05c3a;
+            --leaf: #2d7a4f;
+            --gold: #c9a84c;
+            --ink: #1a1a2e;
+            --mist: #f0f4f8;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--ink);
+            color: var(--mist);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--ocean) 0%, #0d2b40 60%, var(--ink) 100%);
+            padding: 60px 40px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 50%, rgba(26, 143, 181, 0.18) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(201, 168, 76, 0.12) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(201, 168, 76, 0.15);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 6px 18px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 6vw, 72px);
+            font-weight: 900;
+            line-height: 1.1;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: rgba(240, 244, 248, 0.65);
+            max-width: 520px;
+            margin: 0 auto 40px;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        /* Stats bar */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            flex-wrap: wrap;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 32px;
+            margin-top: 8px;
+        }
+
+        .stat {
+            padding: 0 32px;
+            text-align: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat:last-child {
+            border-right: none;
+        }
+
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: rgba(240, 244, 248, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 2px;
+        }
+
+        /* Nav tabs */
+        .nav-wrap {
+            background: rgba(10, 25, 40, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0 24px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-tab {
+            padding: 16px 22px;
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(240, 244, 248, 0.45);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.25s;
+            white-space: nowrap;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .nav-tab:hover {
+            color: rgba(240, 244, 248, 0.8);
+        }
+
+        .nav-tab.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+
+        /* Content wrapper */
+        .content-wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* Section */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeUp 0.4s ease;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Region cards */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .section-sub {
+            font-size: 14px;
+            color: rgba(240, 244, 248, 0.5);
+            margin-bottom: 32px;
+        }
+
+        .region-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .region-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.25s, border-color 0.25s;
+        }
+
+        .region-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(201, 168, 76, 0.3);
+        }
+
+        .card-header {
+            padding: 20px 22px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .card-region {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.3;
+        }
+
+        .card-body {
+            padding: 18px 22px 20px;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: rgba(240, 244, 248, 0.55);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .attraction-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .attraction-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .attraction-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--sky);
+            margin-top: 7px;
+            flex-shrink: 0;
+        }
+
+        .attraction-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--mist);
+        }
+
+        .attraction-desc {
+            font-size: 12px;
+            color: rgba(240, 244, 248, 0.5);
+            line-height: 1.5;
+            margin-top: 2px;
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 3px 9px;
+            border-radius: 20px;
+            margin-top: 8px;
+            margin-right: 4px;
+        }
+
+        .tag-unesco {
+            background: rgba(26, 143, 181, 0.2);
+            color: var(--sky);
+            border: 1px solid rgba(26, 143, 181, 0.3);
+        }
+
+        .tag-heritage {
+            background: rgba(201, 168, 76, 0.15);
+            color: var(--gold);
+            border: 1px solid rgba(201, 168, 76, 0.3);
+        }
+
+        .tag-nature {
+            background: rgba(45, 122, 79, 0.2);
+            color: #5dbf7e;
+            border: 1px solid rgba(45, 122, 79, 0.3);
+        }
+
+        .tag-history {
+            background: rgba(224, 92, 58, 0.15);
+            color: #f07a60;
+            border: 1px solid rgba(224, 92, 58, 0.3);
+        }
+
+        .tag-beach {
+            background: rgba(26, 143, 181, 0.15);
+            color: #7dcff0;
+            border: 1px solid rgba(26, 143, 181, 0.25);
+        }
+
+        /* Nicknames section */
+        .nickname-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 12px;
+        }
+
+        .nickname-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 12px;
+            padding: 16px 18px;
+            transition: border-color 0.2s;
+        }
+
+        .nickname-card:hover {
+            border-color: rgba(201, 168, 76, 0.3);
+        }
+
+        .nickname-place {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .nickname-title {
+            font-size: 12px;
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        /* Regions list section */
+        .region-list-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .region-list-table thead th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            background: rgba(201, 168, 76, 0.07);
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+        }
+
+        .region-list-table tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background 0.15s;
+        }
+
+        .region-list-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .region-list-table td {
+            padding: 11px 16px;
+            color: rgba(240, 244, 248, 0.75);
+            vertical-align: top;
+        }
+
+        .region-list-table td:first-child {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .region-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            background: rgba(26, 143, 181, 0.2);
+            color: var(--sky);
+            margin-right: 8px;
+        }
+
+        /* Quiz section */
+        .quiz-wrap {
+            max-width: 680px;
+        }
+
+        .quiz-progress {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .quiz-bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .quiz-bar-fill {
+            height: 100%;
+            background: var(--gold);
+            border-radius: 2px;
+            transition: width 0.4s ease;
+        }
+
+        .quiz-count {
+            font-size: 12px;
+            color: rgba(240, 244, 248, 0.5);
+            white-space: nowrap;
+        }
+
+        .quiz-score-badge {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 36px;
+        }
+
+        .quiz-q-num {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--sky);
+            margin-bottom: 12px;
+        }
+
+        .quiz-question {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.4;
+            margin-bottom: 30px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .quiz-option {
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            cursor: pointer;
+            font-size: 14px;
+            color: rgba(240, 244, 248, 0.8);
+            transition: all 0.2s;
+            text-align: left;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .quiz-option:hover:not(:disabled) {
+            border-color: var(--sky);
+            background: rgba(26, 143, 181, 0.1);
+            color: var(--white);
+        }
+
+        .quiz-option.correct {
+            border-color: #5dbf7e;
+            background: rgba(45, 122, 79, 0.2);
+            color: #5dbf7e;
+        }
+
+        .quiz-option.wrong {
+            border-color: #f07a60;
+            background: rgba(224, 92, 58, 0.15);
+            color: #f07a60;
+        }
+
+        .quiz-option:disabled {
+            cursor: default;
+        }
+
+        .quiz-feedback {
+            font-size: 13px;
+            line-height: 1.6;
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: rgba(45, 122, 79, 0.15);
+            color: #5dbf7e;
+            border: 1px solid rgba(45, 122, 79, 0.3);
+        }
+
+        .quiz-feedback.wrong {
+            background: rgba(224, 92, 58, 0.1);
+            color: #f07a60;
+            border: 1px solid rgba(224, 92, 58, 0.25);
+        }
+
+        .quiz-next {
+            background: var(--gold);
+            color: var(--ink);
+            border: none;
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: opacity 0.2s;
+            display: none;
+        }
+
+        .quiz-next:hover {
+            opacity: 0.85;
+        }
+
+        .quiz-next.show {
+            display: inline-block;
+        }
+
+        .quiz-result {
+            text-align: center;
+            padding: 20px 0;
+            display: none;
+        }
+
+        .quiz-result.show {
+            display: block;
+        }
+
+        .result-score {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            font-weight: 900;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .result-label {
+            font-size: 18px;
+            color: rgba(240, 244, 248, 0.7);
+            margin-bottom: 24px;
+        }
+
+        .quiz-restart {
+            background: var(--ocean);
+            color: var(--white);
+            border: 1px solid var(--sky);
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: background 0.2s;
+        }
+
+        .quiz-restart:hover {
+            background: var(--sky);
+        }
+
+        /* Flashcards */
+        .flash-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .flash-btn {
+            padding: 10px 22px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--mist);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .flash-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--sky);
+        }
+
+        .flash-counter {
+            font-size: 13px;
+            color: rgba(240, 244, 248, 0.5);
+            margin-left: auto;
+        }
+
+        .flashcard-scene {
+            perspective: 1000px;
+            max-width: 580px;
+            height: 300px;
+            cursor: pointer;
+            margin-bottom: 24px;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.55s ease;
+            border-radius: 20px;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flash-face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 36px;
+            text-align: center;
+        }
+
+        .flash-front {
+            background: linear-gradient(135deg, rgba(10, 79, 110, 0.8), rgba(26, 143, 181, 0.3));
+            border: 1px solid rgba(26, 143, 181, 0.3);
+        }
+
+        .flash-back {
+            background: linear-gradient(135deg, rgba(45, 50, 20, 0.8), rgba(201, 168, 76, 0.15));
+            border: 1px solid rgba(201, 168, 76, 0.25);
+            transform: rotateY(180deg);
+        }
+
+        .flash-hint {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(240, 244, 248, 0.35);
+            margin-bottom: 16px;
+        }
+
+        .flash-question {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.4;
+        }
+
+        .flash-answer {
+            font-size: 16px;
+            color: var(--gold);
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .flash-answer-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(201, 168, 76, 0.5);
+            margin-bottom: 12px;
+        }
+
+        .flash-nav {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .flash-nav-btn {
+            padding: 10px 24px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--mist);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .flash-nav-btn:hover:not(:disabled) {
+            background: var(--ocean);
+            border-color: var(--sky);
+        }
+
+        .flash-nav-btn:disabled {
+            opacity: 0.3;
+            cursor: default;
+        }
+
+        /* search */
+        .search-wrap {
+            position: relative;
+            margin-bottom: 28px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 18px 14px 46px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--white);
+            font-size: 14px;
+            font-family: 'DM Sans', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--sky);
+        }
+
+        .search-input::placeholder {
+            color: rgba(240, 244, 248, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(240, 244, 248, 0.35);
+            font-size: 16px;
+        }
+
+        @media (max-width: 640px) {
+            .hero {
+                padding: 40px 20px 50px;
+            }
+
+            .stat {
+                padding: 0 16px;
+            }
+
+            .region-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-card {
+                padding: 24px 20px;
+            }
+
+            .flashcard-scene {
+                height: 260px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero">
+        <div class="hero-badge">TH2205 Study Reviewer</div>
+        <h1>Philippine <span>Tourism</span><br>Destinations</h1>
+        <p>A complete interactive reviewer covering all regions, major attractions, city nicknames, and key facts from
+            Handouts 03 & 04.</p>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-num">18</div>
+                <div class="stat-label">Regions</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">7,641</div>
+                <div class="stat-label">Islands</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">82</div>
+                <div class="stat-label">Provinces</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">4</div>
+                <div class="stat-label">UNESCO Sites</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-wrap">
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('attractions')">🗺️ Attractions</button>
+            <button class="nav-tab" onclick="showSection('regions')">📋 Regions</button>
+            <button class="nav-tab" onclick="showSection('nicknames')">🏷️ Nicknames</button>
+            <button class="nav-tab" onclick="showSection('flashcards')">🃏 Flashcards</button>
+            <button class="nav-tab" onclick="showSection('quiz')">✏️ Quiz</button>
+        </div>
+    </div>
+
+    <div class="content-wrap">
+
+        <!-- ATTRACTIONS -->
+        <div id="attractions" class="section active">
+            <div class="section-title">Tourist Destinations & Attractions</div>
+            <div class="section-sub">Key attractions per region — hover cards for details</div>
+            <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input class="search-input" id="attrSearch" placeholder="Search attractions, regions, destinations..."
+                    oninput="filterCards()">
+            </div>
+            <div class="region-grid" id="regionGrid">
+
+                <div class="region-card" data-search="ncr manila intramuros rizal park national museum ocean park">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(26,143,181,0.15)">🏙️</div>
+                        <div>
+                            <div class="card-region">NCR</div>
+                            <div class="card-title">Manila</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Philippines' capital; top shopping, arts, cultural immersion. Near Laguna
+                            de Bai lakeshore towns.</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Intramuros</div>
+                                    <div class="attraction-desc">Oldest historic place in Manila; contains San Agustin
+                                        Church (UNESCO) & Fort Santiago (built 1571).</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Rizal Park</div>
+                                    <div class="attraction-desc">People's park with sculptures, gardens, event venues;
+                                        flagship of freedom.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">National Museum of the Philippines</div>
+                                    <div class="attraction-desc">Houses Fine Arts, Anthropology, Natural History museums
+                                        & National Planetarium.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Manila Ocean Park</div>
+                                    <div class="attraction-desc">Country's first world-class marine theme park; features
+                                        the Oceanarium.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-heritage">Heritage</span><span class="tag tag-history">History</span>
+                    </div>
+                </div>
+
+                <div class="region-card" data-search="ncr quezon city memorial circle art island">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(201,168,76,0.12)">🎨</div>
+                        <div>
+                            <div class="card-region">NCR</div>
+                            <div class="card-title">Quezon City</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Most populous city in Metro Manila; tourism focused on cultural,
+                            historical, educational activities.</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Quezon Memorial Circle</div>
+                                    <div class="attraction-desc">27-hectare national park dedicated to President Manuel
+                                        L. Quezon; houses a museum & his remains.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Art in Island Museum</div>
+                                    <div class="attraction-desc">3D art museum founded by Yun Jae Kyoung with 18 Korean
+                                        master painters; immersive photo backdrops.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-history">History</span><span class="tag tag-heritage">Culture</span>
+                    </div>
+                </div>
+
+                <div class="region-card" data-search="CAR benguet baguio burnham wright baguio cathedral panagbenga">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(45,122,79,0.15)">🌲</div>
+                        <div>
+                            <div class="card-region">CAR</div>
+                            <div class="card-title">Benguet / Baguio</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">"Salad Bowl of the Philippines." Baguio = "Summer Capital" & "City of
+                            Pines" (avg 15–23°C).</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Baguio Cathedral</div>
+                                    <div class="attraction-desc">Distinct pink facade, rose windows & twin belfry
+                                        (completed 1936).</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Burnham Park</div>
+                                    <div class="attraction-desc">Premier oldest park; gardens, lake, biking, skating,
+                                        boat rides.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Wright Park & The Mansion</div>
+                                    <div class="attraction-desc">Horseback riding, souvenirs; The Mansion = official
+                                        summer residence of the Philippine president.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Colors of Stobosa</div>
+                                    <div class="attraction-desc">Hillside home artwork at La Trinidad; symbolizes
+                                        reblooming & re-greening of the environment.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-nature">Nature</span><span class="tag tag-heritage">Culture</span>
+                    </div>
+                </div>
+
+                <div class="region-card" data-search="CAR ifugao banaue rice terraces philippine war memorial">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(45,122,79,0.15)">🌾</div>
+                        <div>
+                            <div class="card-region">CAR</div>
+                            <div class="card-title">Ifugao</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Known for the bulul (rice deity figure); festival: Gotad Ad Ifugao (June).
+                        </p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Banaue Rice Terraces</div>
+                                    <div class="attraction-desc">"Eighth Wonder of the World" & UNESCO World Heritage
+                                        Site; 2,000-year-old cascading rice terraces by Ifugao ancestors.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Philippine War Memorial Shrine</div>
+                                    <div class="attraction-desc">Commemorates WWII's end; pyramid-type structure in
+                                        Kiangan depicting the defeat of Gen. Yamashita.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-unesco">UNESCO</span><span class="tag tag-history">History</span>
+                    </div>
+                </div>
+
+                <div class="region-card" data-search="CAR kalinga apo whang-od tattoo buscalan mambababatok">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(224,92,58,0.12)">🪡</div>
+                        <div>
+                            <div class="card-region">CAR</div>
+                            <div class="card-title">Kalinga</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Home of the last and oldest <em>mambababatok</em> (traditional tattoo
+                            artist).</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Apo Whang-Od</div>
+                                    <div class="attraction-desc">Located in Buscalan Village; over 70 years of tattooing
+                                        Kalinga warriors. Uses calamansi thorn, soot & water pigment as traditional
+                                        tools.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-heritage">Culture</span>
+                    </div>
+                </div>
+
+                <div class="region-card"
+                    data-search="region 1 ilocos norte paoay church malacanang north la paz sand dunes vigan calle crisologo bantay bell tower">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(26,143,181,0.12)">⛪</div>
+                        <div>
+                            <div class="card-region">Region I</div>
+                            <div class="card-title">Ilocos Region</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Ilocos Norte capital: Laoag (northernmost urban hub). Ilocos Sur: Vigan
+                            City — most well-preserved Spanish colonial town (UNESCO World Heritage).</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Paoay Church</div>
+                                    <div class="attraction-desc">UNESCO World Heritage; Saint Augustine Church;
+                                        baroque/Spanish colonial architecture.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">La Paz Sand Dunes</div>
+                                    <div class="attraction-desc">Sandy coastal desert near Laoag; sand surfing & ATV
+                                        rides.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Calle Crisologo</div>
+                                    <div class="attraction-desc">Cobblestone street in Vigan with Spanish-era houses &
+                                        horse-drawn carriages (calesas).</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Bantay Bell Tower</div>
+                                    <div class="attraction-desc">Built 1591 as a watchtower; iconic symbol of Vigan.
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-unesco">UNESCO</span><span class="tag tag-heritage">Heritage</span>
+                    </div>
+                </div>
+
+                <div class="region-card"
+                    data-search="region 2 cagayan valley batanes callao cave palaui island honesty coffee sabtang">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(26,143,181,0.12)">🌊</div>
+                        <div>
+                            <div class="card-region">Region II</div>
+                            <div class="card-title">Cagayan Valley</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Batanes = northernmost & smallest province; indigenous people = Ivatans.
+                        </p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Honesty Coffee Shop (Batanes)</div>
+                                    <div class="attraction-desc">Unmanned refreshment store worldwide fame — buyers pay
+                                        on honor system in a wooden box.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Callao Cave (Cagayan)</div>
+                                    <div class="attraction-desc">7-chambered cave with massive limestones, 7 skylights,
+                                        and a chapel; contains oldest human remains in PH.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Palaui Island</div>
+                                    <div class="attraction-desc">7,000-hectare protected ecotourism sanctuary; pristine
+                                        ecosystems & geological formations.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-nature">Nature</span><span class="tag tag-history">History</span>
+                    </div>
+                </div>
+
+                <div class="region-card" data-search="region 3 central luzon bataan las casas mt samat aurora baler">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(224,92,58,0.12)">✝️</div>
+                        <div>
+                            <div class="card-region">Region III</div>
+                            <div class="card-title">Central Luzon</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">"Rice Granary of the Philippines." Clark International Airport located here
+                            (Pampanga).</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Las Casas Filipinas De Acuzar (Bataan)</div>
+                                    <div class="attraction-desc">Beach resort, convention center & heritage destination
+                                        with restored heritage houses.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Mt. Samat Shrine / Dambana ng Kagitingan</div>
+                                    <div class="attraction-desc">72-hectare memorial honoring Filipino-American forces
+                                        against Japan in WWII. Features a Colonnade & Memorial Cross.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-history">History</span><span class="tag tag-nature">Nature</span>
+                    </div>
+                </div>
+
+                <div class="region-card"
+                    data-search="calabarzon batangas taal volcano laguna pagsanjan falls enchanted kingdom rizal angono petroglyphs">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(224,92,58,0.12)">🌋</div>
+                        <div>
+                            <div class="card-region">Region IV-A</div>
+                            <div class="card-title">CALABARZON</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">"Industrial Powerhouse of the Philippines." South & east of Metro Manila.
+                        </p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Taal Volcano (Batangas)</div>
+                                    <div class="attraction-desc">Smallest active volcano in the Philippines; accessible
+                                        by boat then trek/horseback.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Pagsanjan Falls (Laguna)</div>
+                                    <div class="attraction-desc">"Shooting the rapids" boat ride by accredited boatmen
+                                        through Magdapio River.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Enchanted Kingdom (Laguna)</div>
+                                    <div class="attraction-desc">First and only world-class theme park in the
+                                        Philippines.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Angono-Binangonan Petroglyphs (Rizal)</div>
+                                    <div class="attraction-desc">Oldest Filipino work of art; discovered 1965 by Carlos
+                                        "Botong" Francisco; 127 stone-age rock engravings.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-nature">Nature</span><span class="tag tag-history">History</span>
+                    </div>
+                </div>
+
+                <div class="region-card"
+                    data-search="mimaropa palawan puerto princesa underground river tubbataha reef coron el nido">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(26,143,181,0.15)">🤿</div>
+                        <div>
+                            <div class="card-region">Region IV-B</div>
+                            <div class="card-title">Palawan</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Largest province in the Philippines (~1,780 islands). Houses 2 UNESCO World
+                            Heritage Sites.</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Puerto Princesa Subterranean River</div>
+                                    <div class="attraction-desc">UNESCO World Heritage; limestone karst landscape;
+                                        underground river emptying directly into the sea.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Tubbataha Reef Marine Park</div>
+                                    <div class="attraction-desc">UNESCO; 96,828 hectares in Sulu Sea; North Islet is
+                                        nesting site for marine turtles & birds; 100-m perpendicular wall.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Calauit Safari Park</div>
+                                    <div class="attraction-desc">3,700-hectare wildlife reserve with critically
+                                        endangered species native to Palawan's Calamian island chain.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-unesco">UNESCO</span><span class="tag tag-nature">Nature</span><span
+                            class="tag tag-beach">Beach</span>
+                    </div>
+                </div>
+
+                <div class="region-card" data-search="bicol albay mayon volcano cagsawa ruins">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(224,92,58,0.15)">🌋</div>
+                        <div>
+                            <div class="card-region">Region V</div>
+                            <div class="card-title">Bicol – Albay</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Also known as Bicolandia; southernmost tip of Luzon.</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Mayon Volcano National Park</div>
+                                    <div class="attraction-desc">Most active volcano in the Philippines; perfect cone
+                                        shape; home to threatened & endangered species. ATV tours available.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Cagsawa Ruins</div>
+                                    <div class="attraction-desc">Remains of a 16th-century Franciscan church destroyed
+                                        by Mayon's 1814 eruption; only belfry survived.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-nature">Nature</span><span class="tag tag-history">History</span>
+                    </div>
+                </div>
+
+                <div class="region-card"
+                    data-search="western visayas aklan boracay willy rock ati-atihan festival beach capital">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(26,143,181,0.12)">🏖️</div>
+                        <div>
+                            <div class="card-region">Region VI</div>
+                            <div class="card-title">Boracay, Aklan</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">"Beach Capital of the Philippines." Ranked #1 in Condé Nast Traveler's Top
+                            Island (Asia) 2022. Aklan = oldest province in the country.</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Willy's Rock</div>
+                                    <div class="attraction-desc">Popular attraction with a Virgin Mary statue atop
+                                        man-made staircase on a rock.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Boracay Oceanarium</div>
+                                    <div class="attraction-desc">Longest underwater tunnel in the Philippines; houses
+                                        one of the world's largest pearls.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Ati-Atihan Festival</div>
+                                    <div class="attraction-desc">Held every January in Kalibo; Mardi Gras-style; one of
+                                        the most popular festivals in the country.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-beach">Beach</span><span class="tag tag-heritage">Culture</span>
+                    </div>
+                </div>
+
+                <div class="region-card"
+                    data-search="negros island region bacolod masKara festival the ruins san sebastian cathedral dumaguete apo island siquijor">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(201,168,76,0.12)">🎭</div>
+                        <div>
+                            <div class="card-region">NIR</div>
+                            <div class="card-title">Negros Island Region</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Bacolod = "City of Smiles"; rich culinary heritage. Dumaguete = "City of
+                            Gentle People."</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">The Ruins (Negros Occidental)</div>
+                                    <div class="attraction-desc">"Taj Mahal of Negros Occidental." Remnant mansion of
+                                        sugar baron Don Mariano Lacson; burned in WWII.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Apo Island (Negros Oriental)</div>
+                                    <div class="attraction-desc">One of the best diving spots; swim with pawikans (sea
+                                        turtles) & rich marine biodiversity.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Siquijor</div>
+                                    <div class="attraction-desc">Formerly "Isla de Fuegos" (Island of Fire) — fireflies
+                                        on molave trees mistaken for fire by Spaniards. Southernmost Visayan island.
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-beach">Beach</span><span class="tag tag-history">History</span>
+                    </div>
+                </div>
+
+                <div class="region-card"
+                    data-search="central visayas bohol chocolate hills loboc river tarsier cebu magellan cross santo nino oslob whale shark">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(45,122,79,0.12)">🐠</div>
+                        <div>
+                            <div class="card-region">Region VII</div>
+                            <div class="card-title">Central Visayas</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Cebu City = oldest city in PH, birthplace of Christianity in Far East.
+                            "Queen City of the South."</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Chocolate Hills (Bohol)</div>
+                                    <div class="attraction-desc">50 km spread; hundreds of conical limestone hills that
+                                        turn brown (chocolate) in dry season. Unique geological formation.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Philippine Tarsier Sanctuary (Bohol)</div>
+                                    <div class="attraction-desc">Ecotourism site in Corella protecting the endangered
+                                        tarsier (mamag); established by Philippine Tarsier Foundation.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Magellan's Cross (Cebu)</div>
+                                    <div class="attraction-desc">First planted in 1521 by Ferdinand Magellan; marks the
+                                        birth of Christianity in the Philippines. Encased in wooden cross to preserve
+                                        it.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Oslob Whale Shark Interaction</div>
+                                    <div class="attraction-desc">Swim with the largest fish in the world; strengthened
+                                        marine ecosystem protection efforts.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-nature">Nature</span><span class="tag tag-history">History</span><span
+                            class="tag tag-beach">Beach</span>
+                    </div>
+                </div>
+
+                <div class="region-card"
+                    data-search="eastern visayas leyte samar san juanico bridge homonhon island magellan first foot">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(26,143,181,0.12)">🌉</div>
+                        <div>
+                            <div class="card-region">Region VIII</div>
+                            <div class="card-title">Eastern Visayas</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Homonhon Island: where Ferdinand Magellan first set foot on Philippine soil
+                            (March 16, 1521).</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">San Juanico Bridge (Leyte)</div>
+                                    <div class="attraction-desc">Crosses San Juanico Strait connecting Samar & Leyte
+                                        islands.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Kalanggaman Island (Leyte)</div>
+                                    <div class="attraction-desc">Name means "bird" in Bisaya; island resembles flapping
+                                        bird wings when viewed from above.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-history">History</span><span class="tag tag-beach">Beach</span>
+                    </div>
+                </div>
+
+                <div class="region-card"
+                    data-search="zamboanga peninsula dapitan rizal shrine p'gsalabuk circle dipolog">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(224,92,58,0.12)">🏛️</div>
+                        <div>
+                            <div class="card-region">Region IX</div>
+                            <div class="card-title">Zamboanga Peninsula</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Dapitan City rich in Jose Rizal history; P'gsalabuk = "Orchid City"
+                            (Dipolog).</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Rizal Shrine Park (Dapitan)</div>
+                                    <div class="attraction-desc">Dr. Rizal decorated the plaza & created a relief map of
+                                        Mindanao; built a house for his family on 16 hectares — now a major landmark.
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">P'gsalabuk Circle (Dipolog)</div>
+                                    <div class="attraction-desc">Resin figure of 3 people representing Lumads, Muslims &
+                                        Christians — symbolizing unity holding a bowl to the heavens in thanksgiving.
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-history">History</span><span class="tag tag-heritage">Culture</span>
+                    </div>
+                </div>
+
+                <div class="region-card"
+                    data-search="northern mindanao bukidnon camiguin sunken cemetery hibok-hibok cagayan de oro white water rafting">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(45,122,79,0.12)">🌿</div>
+                        <div>
+                            <div class="card-region">Region X</div>
+                            <div class="card-title">Northern Mindanao</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Camiguin = "Island Born of Fire" (7 volcanoes). Cagayan de Oro = "City of
+                            Golden Friendship."</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Mt. Hibok-Hibok Range Natural Monument</div>
+                                    <div class="attraction-desc">Declared ASEAN Heritage Park (2015); encompasses active
+                                        Mt. Hibok-Hibok & Mt. Timpoong in Camiguin.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Sunken Cemetery (Camiguin)</div>
+                                    <div class="attraction-desc">Resting place of thousands who died in eruption of Old
+                                        Vulcan; tourists can dive and snorkel here.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Cagayan de Oro River Rapids</div>
+                                    <div class="attraction-desc">90 km of white water rafting; adventure tourism center
+                                        of Mindanao.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-nature">Nature</span><span class="tag tag-beach">Adventure</span>
+                    </div>
+                </div>
+
+                <div class="region-card"
+                    data-search="davao mount apo philippine eagle center people's park largest mountain">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(45,122,79,0.15)">🦅</div>
+                        <div>
+                            <div class="card-region">Region XI</div>
+                            <div class="card-title">Davao Region</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">"Fruit Basket of the Philippines." Home to Mt. Apo, the highest mountain in
+                            the country.</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Mount Apo</div>
+                                    <div class="attraction-desc">Highest mountain in the Philippines (locally: Apo
+                                        Sandawa); potentially active volcano; sacred in local mythology.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Philippine Eagle Center</div>
+                                    <div class="attraction-desc">Home to the endangered Philippine eagle and birds of
+                                        prey in Mt. Apo's foothills.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">People's Park</div>
+                                    <div class="attraction-desc">4-hectare cultural-theme park with mini-forest,
+                                        man-made falls, dancing fountain & giant durian dome. Best park in PH.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-nature">Nature</span><span class="tag tag-heritage">Culture</span>
+                    </div>
+                </div>
+
+                <div class="region-card"
+                    data-search="soccsksargen cotabato lake sebu south cotabato tboli tribe asik-asik falls">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(26,143,181,0.12)">💧</div>
+                        <div>
+                            <div class="card-region">Region XII</div>
+                            <div class="card-title">SOCCSKSARGEN</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Cotabato = "Fruit Basket of Mindanao." South Cotabato = "Land of the
+                            Dreamweavers" (T'boli Tribe).</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Lake Agco (Cotabato)</div>
+                                    <div class="attraction-desc">"Garden of Eden" of Kidapawan City; steaming hot lake
+                                        used for sulfuric mud spa by Manobos tribe.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Lake Sebu (South Cotabato)</div>
+                                    <div class="attraction-desc">Home of the T'boli Tribe; 7 magnificent interconnected
+                                        falls viewable via aerial float.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Asik-Asik Falls</div>
+                                    <div class="attraction-desc">Unique 140-meter curtain-like spring falls; popular
+                                        among nature lovers.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-nature">Nature</span><span class="tag tag-heritage">Culture</span>
+                    </div>
+                </div>
+
+                <div class="region-card"
+                    data-search="caraga siargao cloud 9 surfing capital magpupungko tinuy-an falls enchanted river surigao">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(26,143,181,0.15)">🏄</div>
+                        <div>
+                            <div class="card-region">Region XIII</div>
+                            <div class="card-title">Caraga</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Siargao Island = "Surfing Capital of the Philippines." Teardrop-shaped
+                            island.</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Cloud 9 Beach (Siargao)</div>
+                                    <div class="attraction-desc">Main surf spot; hosts the annual Siargao International
+                                        Surfing Cup; 3-story viewing platform.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Magpupungko Rock Pools</div>
+                                    <div class="attraction-desc">Natural saltwater pools revealed during low tide; great
+                                        for diving & snorkeling from low cliffs.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Tinuy-an Falls (Surigao del Sur)</div>
+                                    <div class="attraction-desc">"Niagara Falls of the Philippines" — 3 tiers forming
+                                        pools of varying sizes and elevation.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Enchanted River (Surigao del Sur)</div>
+                                    <div class="attraction-desc">Turquoise blue lagoon with crystal clear water; natural
+                                        aquarium with colorful fish.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-beach">Beach</span><span class="tag tag-nature">Nature</span>
+                    </div>
+                </div>
+
+                <div class="region-card"
+                    data-search="BARMM bangsamoro maguindanao pink mosque masjid dimaukom blue lagoon">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(201,168,76,0.12)">🕌</div>
+                        <div>
+                            <div class="card-region">BARMM</div>
+                            <div class="card-title">Bangsamoro Region</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Formerly ARMM; renamed after 2019 plebiscite. Muslim-dominant autonomous
+                            region.</p>
+                        <ul class="attraction-list">
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Masjid Dimaukom (Pink Mosque)</div>
+                                    <div class="attraction-desc">Situated in Datu Saudi Ampatuan; completed mid-2014;
+                                        pink color symbolizes peace & love; built by Christian workers to emphasize
+                                        unity.</div>
+                                </div>
+                            </li>
+                            <li class="attraction-item">
+                                <div class="attraction-dot"></div>
+                                <div>
+                                    <div class="attraction-name">Blue Lagoon (Maguindanao)</div>
+                                    <div class="attraction-desc">Naturally bluish water rare to be found anywhere else
+                                        in the world.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="tag tag-heritage">Culture</span><span class="tag tag-nature">Nature</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- REGIONS TABLE -->
+        <div id="regions" class="section">
+            <div class="section-title">Philippine Regions Overview</div>
+            <div class="section-sub">18 regions as of July 2025 — 8 in Luzon, 4 in Visayas, 6 in Mindanao</div>
+            <table class="region-list-table">
+                <thead>
+                    <tr>
+                        <th>Region</th>
+                        <th>Key Provinces</th>
+                        <th>Key Facts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="region-badge">NCR</span>National Capital Region</td>
+                        <td>16 cities, 1 municipality (Pateros)</td>
+                        <td>Only region without a province. Capital: Manila. NAIA located between Parañaque & Pasay.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="region-badge">CAR</span>Cordillera Administrative Region</td>
+                        <td>Abra, Apayao, Benguet, Ifugao, Kalinga, Mountain Province</td>
+                        <td>Only landlocked region. "Most diversified ethnolinguistic region." Home to Igorot tribes.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="region-badge">I</span>Ilocos Region</td>
+                        <td>Ilocos Norte, Ilocos Sur, La Union, Pangasinan</td>
+                        <td>Northern Luzon coast. Dialects: Ilocano, Pangasinense. Capital of Ilocos Sur: Vigan.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="region-badge">II</span>Cagayan Valley</td>
+                        <td>Batanes, Cagayan, Isabela, Nueva Vizcaya, Quirino</td>
+                        <td>NE Luzon. Fertile agricultural region. Cagayan River = longest & widest river in PH.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="region-badge">III</span>Central Luzon</td>
+                        <td>Aurora, Bataan, Bulacan, Nueva Ecija, Pampanga, Tarlac, Zambales</td>
+                        <td>"Rice Granary of the Philippines" (Nueva Ecija). Clark International Airport in Pampanga.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="region-badge">IV-A</span>CALABARZON</td>
+                        <td>Batangas, Cavite, Laguna, Quezon, Rizal</td>
+                        <td>"Industrial Powerhouse of the Philippines." SW Luzon. Tagalog-speaking majority.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="region-badge">IV-B</span>MIMAROPA</td>
+                        <td>Marinduque, Occ. Mindoro, Or. Mindoro, Palawan, Romblon</td>
+                        <td>"Southern Tagalog Islands." 3 different climates in one region. Palawan = largest province.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="region-badge">V</span>Bicol Region</td>
+                        <td>Albay, Camarines Norte, Camarines Sur, Catanduanes, Masbate, Sorsogon</td>
+                        <td>"Bicolandia"; southernmost tip of Luzon. Dialects: Bikol, Filipino. Mayon Volcano here.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="region-badge">VI</span>Western Visayas</td>
+                        <td>Aklan, Antique, Capiz, Guimaras, Iloilo</td>
+                        <td>Western Visayas. Dialects: Kinaray-a, Hiligaynon, Aklanon. Boracay in Aklan.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="region-badge">NIR</span>Negros Island Region</td>
+                        <td>Negros Occidental, Negros Oriental, Siquijor</td>
+                        <td>Rich cultural heritage. Sugarcane plantations. Languages: Hiligaynon, Cebuano.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="region-badge">VII</span>Central Visayas</td>
+                        <td>Bohol, Cebu</td>
+                        <td>Dominant language: Cebuano. Cebu City = oldest city in PH. Rich historical heritage since
+                            16th century.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="region-badge">VIII</span>Eastern Visayas</td>
+                        <td>Biliran, Eastern Samar, Leyte, N. Samar, Samar, S. Leyte</td>
+                        <td>3 main islands: Leyte, Samar (connected by San Juanico Bridge), Biliran. Faces Pacific
+                            Ocean.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="region-badge">IX</span>Zamboanga Peninsula</td>
+                        <td>Zamboanga del Norte, Zamboanga del Sur, Zamboanga Sibugay</td>
+                        <td>W. Mindanao. Between Sulu Sea & Moro Gulf. Dialects: Bisaya, Tagalog, Tausug, Maranao.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="region-badge">X</span>Northern Mindanao</td>
+                        <td>Bukidnon, Camiguin, Lanao del Norte, Misamis Occidental, Misamis Oriental</td>
+                        <td>N. Mindanao. Modern port facilities. Bisaya, Boholano, Cebuano widely spoken.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="region-badge">XI</span>Davao Region</td>
+                        <td>Davao de Oro, Davao del Norte, Davao del Sur, Davao Occidental, Davao Oriental</td>
+                        <td>SE Mindanao. "Fruit Basket of the Philippines." Melting pot of cultures. Mt. Apo here.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="region-badge">XII</span>SOCCSKSARGEN</td>
+                        <td>Cotabato, Sarangani, South Cotabato, Sultan Kudarat</td>
+                        <td>S-central Mindanao. Name = acronym of provinces + General Santos City. Rio Grande de
+                            Mindanao (2nd largest river) here.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="region-badge">XIII</span>Caraga</td>
+                        <td>Agusan del Norte, Agusan del Sur, Dinagat Islands, Surigao del Norte, Surigao del Sur</td>
+                        <td>Majority Visayan lineage. Cebuano most spoken. Siargao = "Surfing Capital of the
+                            Philippines."</td>
+                    </tr>
+                    <tr>
+                        <td><span class="region-badge">BARMM</span>Bangsamoro Autonomous Region</td>
+                        <td>Basilan, Lanao del Sur, Maguindanao del Norte, Maguindanao del Sur, Sulu, Tawi-Tawi</td>
+                        <td>Formerly ARMM; renamed via 2019 plebiscite. Muslim-dominant. Maguindanao divided into 2 via
+                            RA 11550 (July 27, 2020).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- NICKNAMES -->
+        <div id="nicknames" class="section">
+            <div class="section-title">City & Province Nicknames</div>
+            <div class="section-sub">Official and unofficial titles commonly tested in exams</div>
+            <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input class="search-input" id="nickSearch" placeholder="Search nicknames or places..."
+                    oninput="filterNicknames()">
+            </div>
+            <div class="nickname-grid" id="nicknameGrid">
+            </div>
+        </div>
+
+        <!-- FLASHCARDS -->
+        <div id="flashcards" class="section">
+            <div class="section-title">Flashcards</div>
+            <div class="section-sub">Click the card to reveal the answer</div>
+            <div class="flash-controls">
+                <button class="flash-btn" onclick="shuffleFlash()">🔀 Shuffle</button>
+                <button class="flash-btn" onclick="resetFlash()">↩ Reset</button>
+                <div class="flash-counter" id="flashCounter">Card 1 of 30</div>
+            </div>
+            <div class="flashcard-scene" onclick="flipFlash()">
+                <div class="flashcard" id="flashcard">
+                    <div class="flash-face flash-front">
+                        <div class="flash-hint">TAP TO FLIP</div>
+                        <div class="flash-question" id="flashQuestion">Loading...</div>
+                    </div>
+                    <div class="flash-face flash-back">
+                        <div class="flash-answer-label">ANSWER</div>
+                        <div class="flash-answer" id="flashAnswer">Loading...</div>
+                    </div>
+                </div>
+            </div>
+            <div class="flash-nav">
+                <button class="flash-nav-btn" id="flashPrev" onclick="prevFlash()">← Previous</button>
+                <button class="flash-nav-btn" id="flashNext" onclick="nextFlash()">Next →</button>
+            </div>
+        </div>
+
+        <!-- QUIZ -->
+        <div id="quiz" class="section">
+            <div class="section-title">Practice Quiz</div>
+            <div class="section-sub">Test your knowledge of Philippine tourism</div>
+            <div class="quiz-wrap">
+                <div class="quiz-progress">
+                    <div class="quiz-bar">
+                        <div class="quiz-bar-fill" id="quizBar" style="width:0%"></div>
+                    </div>
+                    <span class="quiz-count" id="quizCount">0 / 15</span>
+                    <span class="quiz-score-badge" id="quizScoreBadge">Score: 0</span>
+                </div>
+                <div class="quiz-card" id="quizCard">
+                    <div class="quiz-q-num" id="qNum">Question 1</div>
+                    <div class="quiz-question" id="qText">Loading...</div>
+                    <div class="quiz-options" id="qOptions"></div>
+                    <div class="quiz-feedback" id="qFeedback"></div>
+                    <button class="quiz-next" id="qNext" onclick="nextQuestion()">Next Question →</button>
+                    <div class="quiz-result" id="quizResult">
+                        <div class="result-score" id="resultScore">0/15</div>
+                        <div class="result-label" id="resultLabel">Loading...</div>
+                        <button class="quiz-restart" onclick="startQuiz()">Restart Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // === NAV ===
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            event.target.classList.add('active');
+            if (id === 'flashcards') renderFlash();
+            if (id === 'quiz') startQuiz();
+            if (id === 'nicknames') renderNicknames();
+        }
+
+        // === SEARCH ATTRACTIONS ===
+        function filterCards() {
+            const q = document.getElementById('attrSearch').value.toLowerCase();
+            document.querySelectorAll('.region-card').forEach(card => {
+                const text = card.dataset.search + ' ' + card.innerText.toLowerCase();
+                card.style.display = text.includes(q) ? '' : 'none';
+            });
+        }
+
+        // === NICKNAMES DATA ===
+        const nicknames = [
+            ["Aklan", "Oldest Province in the Philippines"], ["Cebu City", "Oldest City in the Philippines"],
+            ["Davao City", "Largest City in the Philippines"], ["Palawan", "Largest Province in the Philippines"],
+            ["Nueva Ecija", "Rice Granary of the Philippines"], ["Pampanga", "Culinary Capital of the Philippines"],
+            ["Marinduque", "Heart of the Philippines"], ["Iloilo City", "The First Queen City of the South"],
+            ["Dumaguete", "City of Gentle People"], ["Cagayan de Oro", "City of Golden Friendship"],
+            ["Manila", "Ever Distinguished Loyal City"], ["General Santos City", "Tuna Capital"],
+            ["Negros Occidental", "Sugarbowl of the Philippines"], ["Romblon", "Marble Capital of the Philippines"],
+            ["Rizal", "Cradle of Philippine Arts"], ["Angono, Rizal", "Arts Capital of the Philippines"],
+            ["Antipolo", "Pilgrimage Capital & City in the Sky"], ["La Union", "Surfing Capital of the North"],
+            ["Camiguin", "Island Born of Fire"], ["Siquijor", "Island of Fire"],
+            ["Marikina", "Shoe Capital of the Philippines"], ["Boracay, Aklan", "Beach Capital of the Philippines"],
+            ["Batanes", "Land of True Insulars"], ["Baguio City", "Summer Capital of the Philippines & City of Pines"],
+            ["Benguet", "Salad Bowl of the Philippines"], ["Vigan, Ilocos Sur", "Heritage City of the Philippines"],
+            ["Donsol, Sorsogon", "Whale Shark Capital of the World"], ["Davao del Norte", "Durian and Banana Capital"],
+            ["La Trinidad, Benguet", "Strawberry & Rose Capital of the Philippines"],
+            ["Cagayan de Oro", "Whitewater Rafting Capital of the Philippines"],
+            ["Bacolod", "City of Smiles"], ["South Cotabato", "Land of the Dreamweavers"],
+            ["El Nido, Palawan", "Heaven on Earth"], ["Dapitan City", "Shrine City of the Philippines"],
+            ["Zamboanga City", "Asia's Latin City; Sardines Capital; City of Flowers"],
+            ["Aurora", "Land of Golden Sunrise"], ["Iligan, Lanao del Norte", "City of Majestic Waterfalls"],
+            ["Tagbilaran", "City of Peace and Friendship"], ["San Fernando, Pampanga", "Lantern Capital of the Philippines"],
+            ["Bataan", "History Hub of Central Luzon"], ["Guimaras", "Mango Capital of the Philippines"],
+            ["Sitangkai, Tawi-Tawi", "Venice of the South"], ["Dagupan City", "Bangus Capital of the Philippines"],
+            ["Tarlac", "Melting Pot of Central Luzon"], ["Tacloban City", "Gateway to Eastern Visayas"],
+            ["Quezon City", "City of Stars and New Horizons"], ["Catanduanes", "Land of the Howling Wind"],
+            ["Bukidnon", "Pineapple Capital"], ["Dipolog, Zamboanga del Norte", "Orchid City of the Philippines"],
+        ];
+
+        function renderNicknames() {
+            const grid = document.getElementById('nicknameGrid');
+            grid.innerHTML = '';
+            nicknames.forEach(([place, nick]) => {
+                grid.innerHTML += `<div class="nickname-card" data-search="${place.toLowerCase()} ${nick.toLowerCase()}">
+      <div class="nickname-place">${place}</div>
+      <div class="nickname-title">"${nick}"</div>
+    </div>`;
+            });
+        }
+        function filterNicknames() {
+            const q = document.getElementById('nickSearch').value.toLowerCase();
+            document.querySelectorAll('.nickname-card').forEach(c => {
+                c.style.display = c.dataset.search.includes(q) ? '' : 'none';
+            });
+        }
+
+        // === FLASHCARDS DATA ===
+        const flashData = [
+            ["What is the oldest and most historic place in Manila?", "Intramuros — translates to 'within the walls'; contains San Agustin Church (UNESCO) & Fort Santiago."],
+            ["Which church is considered the oldest in the Philippines?", "San Agustin Church inside Intramuros — a UNESCO World Heritage Site."],
+            ["What is the Banaue Rice Terraces known as?", '"Eighth Wonder of the World"; UNESCO World Heritage Site made 2,000 years ago by Ifugao ancestors.'],
+            ["What is Baguio City known as?", '"Summer Capital of the Philippines" & "City of Pines." Average temperature: 15–23°C.'],
+            ["What festival does Baguio celebrate every February?", "Panagbenga Festival — annual flower festival. 'Panagbenga' means 'season of blooming' in Kankanaey."],
+            ["Who is Apo Whang-Od and where is she found?", "Last & oldest mambababatok (traditional Kalinga tattoo artist); found in Buscalan Village, Kalinga."],
+            ["What is Vigan City famous for?", "Most well-preserved Spanish colonial town in the Philippines; UNESCO World Heritage Site built in the 16th century."],
+            ["What is the Callao Cave known for?", "7-chambered cave in Peñablanca, Cagayan; contains oldest human remains found in the Philippines."],
+            ["What is the Cagayan River also known as?", "Rio Grande de Cagayan — longest and widest river in the Philippines."],
+            ["What are the two UNESCO World Heritage Sites in Palawan?", "Puerto Princesa Subterranean River National Park & Tubbataha Reef Marine Park."],
+            ["What is Boracay's recent international recognition?", "Ranked #1 in Condé Nast Traveler's Top Island: Readers' Choice Awards 2022 in Asia."],
+            ["What are the Chocolate Hills and where are they?", "Most popular tourist attraction in Bohol; hundreds of limestone hills turning brown (chocolate) in dry season; spread over 50 km."],
+            ["What is the significance of Magellan's Cross in Cebu?", "Planted in 1521 by Ferdinand Magellan; marks the birth of Christianity in the Philippines; encased in a wooden cross to preserve it."],
+            ["What is Homonhon Island known for?", "Where Ferdinand Magellan and his men first set foot on Philippine soil (March 16, 1521)."],
+            ["What does the name 'Kalanggaman Island' mean?", "From 'langgam' meaning 'bird' in Bisaya; the island resembles flapping bird wings from above."],
+            ["What is the Mt. Samat Shrine also called?", "Dambana ng Kagitingan; memorializes Filipino and American forces against Japanese troops in WWII; 72 hectares; features a Colonnade & Memorial Cross."],
+            ["What is Las Casas Filipinas De Acuzar?", "A beach resort, convention center, and heritage destination in Bataan with restored heritage houses."],
+            ["What is Siargao Island known as?", '"Surfing Capital of the Philippines." Hosts annual Siargao International Surfing Cup at Cloud 9 Beach.'],
+            ["What is the Pink Mosque of Maguindanao called?", "Masjid Dimaukom; pink color symbolizes peace & love; built by Christian workers to emphasize unity; completed mid-2014."],
+            ["What is Mount Apo locally known as?", "Apo Sandawa; highest mountain in the Philippines; potentially active volcano; sacred in local mythology."],
+            ["What makes Siquijor's name (Isla de Fuegos) historically interesting?", "Spaniards saw twinkling lights (fireflies on molave trees) at night and thought the island was on fire."],
+            ["What is the Tubbataha Reef Marine Park known for?", "UNESCO; 96,828 hectares in Sulu Sea center; outstanding coral reef ecosystem; 100-meter perpendicular wall; North Islet nests marine turtles & birds."],
+            ["What is the Angono-Binangonan Petroglyphs site?", "Discovered in 1965 by Carlos 'Botong' Francisco; oldest Filipino work of art; 127 rock engravings of human & animal figures from the Stone Age."],
+            ["What is the P'gsalabuk Circle?", "Landmark in Dipolog, Zamboanga del Norte; resin figure of 3 people representing Lumads, Muslims & Christians — symbolizing unity."],
+            ["What is Camiguin nicknamed and why?", '"Island Born of Fire" — shaped by 7 volcanoes and their eruptions.'],
+            ["What is the Enchanted River in Surigao del Sur?", "Turquoise blue lagoon with crystal clear water; described as a natural aquarium with colorful fish of different species."],
+            ["What is the Puerto Princesa Subterranean River known for?", "One of the world's most impressive cave systems; river flows directly into the sea; lower portion subject to tidal effects. UNESCO World Heritage."],
+            ["What is Tinuy-an Falls also called?", '"Niagara Falls of the Philippines" — 3-tiered waterfall in Surigao del Sur.'],
+            ["What is the MassKara Festival?", "Annual festival in Bacolod, Negros Occidental; combines dance, color & music; 'MassKara' means 'many faces'; Local Mardi Gras-style celebration."],
+            ["What region is Siargao Island in and what region code?", "Region XIII — Caraga (Surigao del Norte province)."],
+        ];
+
+        let flashIndex = 0;
+        let flashOrder = flashData.map((_, i) => i);
+
+        function renderFlash() {
+            const idx = flashOrder[flashIndex];
+            document.getElementById('flashQuestion').textContent = flashData[idx][0];
+            document.getElementById('flashAnswer').textContent = flashData[idx][1];
+            document.getElementById('flashcard').classList.remove('flipped');
+            document.getElementById('flashCounter').textContent = `Card ${flashIndex + 1} of ${flashData.length}`;
+            document.getElementById('flashPrev').disabled = flashIndex === 0;
+            document.getElementById('flashNext').disabled = flashIndex === flashData.length - 1;
+        }
+        function flipFlash() { document.getElementById('flashcard').classList.toggle('flipped'); }
+        function prevFlash() { if (flashIndex > 0) { flashIndex--; renderFlash(); } }
+        function nextFlash() { if (flashIndex < flashData.length - 1) { flashIndex++; renderFlash(); } }
+        function shuffleFlash() {
+            flashOrder = flashOrder.sort(() => Math.random() - 0.5);
+            flashIndex = 0;
+            renderFlash();
+        }
+        function resetFlash() {
+            flashOrder = flashData.map((_, i) => i);
+            flashIndex = 0;
+            renderFlash();
+        }
+
+        // === QUIZ DATA ===
+        const quizData = [
+            { q: "Which church inside Intramuros is recognized as a UNESCO World Heritage Site and the oldest church in the Philippines?", opts: ["San Agustin Church", "Paoay Church", "Bantay Bell Tower", "Baguio Cathedral"], ans: 0, exp: "San Agustin Church is located inside Intramuros and is recognized by UNESCO as a World Heritage Site — the oldest church in the Philippines." },
+            { q: "The Banaue Rice Terraces in Ifugao are often called what?", opts: ["Seventh Wonder of Asia", "Eighth Wonder of the World", "UNESCO's Best Landscape", "World's Oldest Farm"], ans: 1, exp: "The Banaue Rice Terraces are dubbed the 'Eighth Wonder of the World' and are also a UNESCO World Heritage Site, built 2,000 years ago by the Ifugao ancestors." },
+            { q: "What does 'Panagbenga' mean in the Kankanaey language?", opts: ["Season of harvest", "Season of blooming", "Season of plenty", "City of flowers"], ans: 1, exp: "Panagbenga comes from a Kankanaey term meaning 'season of blooming' — Baguio's annual February flower festival." },
+            { q: "Apo Whang-Od is known as the last traditional tattoo artist of which province?", opts: ["Mountain Province", "Benguet", "Ifugao", "Kalinga"], ans: 3, exp: "Apo Whang-Od is found in Buscalan Village, Kalinga — she is known as the last and oldest mambababatok (traditional Kalinga tattoo artist)." },
+            { q: "Vigan City in Ilocos Sur is best described as:", opts: ["Most populated city in Northern Luzon", "Most well-preserved Spanish colonial town in the Philippines", "Oldest city in the Philippines", "Philippines' culinary capital"], ans: 1, exp: "Vigan City is recognized as the most well-preserved Spanish colonial town in the Philippines and is a UNESCO World Heritage Site built in the 16th century." },
+            { q: "Which Philippine island was ranked #1 in Condé Nast Traveler's Top Island (Asia) in 2022?", opts: ["Siargao", "Palawan", "Cebu", "Boracay"], ans: 3, exp: "Boracay in Aklan was ranked 1st in Condé Nast Traveler's Top Island: Readers' Choice Awards 2022 in Asia. It is hailed as the 'Beach Capital of the Philippines.'" },
+            { q: "Where did Ferdinand Magellan first set foot on Philippine soil?", opts: ["Cebu", "Samar", "Homonhon Island", "Butuan"], ans: 2, exp: "Homonhon Island in Eastern Samar is where Magellan and his men first set foot on Philippine soil on March 16, 1521." },
+            { q: "The Chocolate Hills in Bohol are named so because:", opts: ["They are shaped like chocolate bars", "The grass turns brown during the dry season", "Cacao trees grow on them", "They were discovered by a Spanish chocolate merchant"], ans: 1, exp: "The Chocolate Hills are named because the grass covering the limestone hills turns brown during the dry season, giving them a chocolate-colored appearance." },
+            { q: "What is the Puerto Princesa Subterranean River famous for?", opts: ["It flows underground and empties directly into the sea", "It is the longest river in the Philippines", "It connects two provinces", "It has the most diverse coral reef"], ans: 0, exp: "A distinctive characteristic of the Puerto Princesa Subterranean River is that it appears directly into the sea, with its lower portion subjected to tidal effects. It is a UNESCO World Heritage Site." },
+            { q: "Camiguin is called the 'Island Born of Fire' because:", opts: ["It has the most active volcano in the Philippines", "It has 7 volcanoes whose eruptions shaped the landscape", "Its soil is volcanic red", "It produces the most hot springs"], ans: 1, exp: "Camiguin is called 'Island Born of Fire' because of its 7 volcanoes and their eruptions which shaped the province's landscape." },
+            { q: "The Cagsawa Ruins in Albay are the remains of what?", opts: ["A Spanish fort destroyed during WWII", "A 16th-century Franciscan church destroyed by Mayon Volcano's 1814 eruption", "A pre-colonial temple", "A leper colony from Spanish times"], ans: 1, exp: "Cagsawa Ruins are the remains of the Cagsawa Church, a 16th-century Franciscan stone church destroyed by Mayon Volcano's 1814 eruption. Only the belfry and parts of the convent survived." },
+            { q: "Siargao is known as the:", opts: ["Beach Capital of the Philippines", "Diving Capital of the Philippines", "Surfing Capital of the Philippines", "Adventure Capital of Mindanao"], ans: 2, exp: "Siargao Island in Surigao del Norte (Region XIII - Caraga) is known as the 'Surfing Capital of the Philippines' and hosts the annual Siargao International Surfing Cup at Cloud 9 Beach." },
+            { q: "What does CALABARZON stand for?", opts: ["A region in Northern Mindanao", "A region in southwestern Luzon composed of Cavite, Laguna, Batangas, Rizal, and Quezon", "A region in the Visayas", "A region in Mindanao known for agriculture"], ans: 1, exp: "CALABARZON (Region IV-A) is in southwestern Luzon, known as the industrial powerhouse of the Philippines. It is composed of Batangas, Cavite, Laguna, Quezon, and Rizal." },
+            { q: "The Pink Mosque (Masjid Dimaukom) in Maguindanao was built with Christian workers to emphasize:", opts: ["The superiority of Islam", "Unity and faith brotherhood between religions", "The power of the local government", "The beauty of Islamic architecture"], ans: 1, exp: "Christian workers were tasked to build the Islamic structure specifically to emphasize unity and enter faith brotherhood. Its pink color symbolizes peace and love." },
+            { q: "Which attraction in Surigao del Sur is called the 'Niagara Falls of the Philippines'?", opts: ["Enchanted River", "Magpupungko Rock Pools", "Tinuy-an Falls", "Tayangban Cave Pool"], ans: 2, exp: "Tinuy-an Falls in Surigao del Sur is called the 'Niagara Falls of the Philippines' — it has 3 tiers of land formation that form pools of varying sizes." },
+        ];
+
+        let quizIndex = 0;
+        let quizScore = 0;
+        let quizAnswered = false;
+        let shuffledQuiz = [];
+
+        function startQuiz() {
+            shuffledQuiz = [...quizData].sort(() => Math.random() - 0.5);
+            quizIndex = 0; quizScore = 0;
+            document.getElementById('quizResult').classList.remove('show');
+            document.getElementById('qNum').style.display = '';
+            document.getElementById('qText').style.display = '';
+            document.getElementById('qOptions').style.display = '';
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            quizAnswered = false;
+            const q = shuffledQuiz[quizIndex];
+            document.getElementById('qNum').textContent = `Question ${quizIndex + 1} of ${shuffledQuiz.length}`;
+            document.getElementById('qText').textContent = q.q;
+            document.getElementById('quizBar').style.width = ((quizIndex / shuffledQuiz.length) * 100) + '%';
+            document.getElementById('quizCount').textContent = `${quizIndex} / ${shuffledQuiz.length}`;
+            document.getElementById('quizScoreBadge').textContent = `Score: ${quizScore}`;
+            const fb = document.getElementById('qFeedback');
+            fb.classList.remove('show', 'correct', 'wrong');
+            document.getElementById('qNext').classList.remove('show');
+
+            const opts = document.getElementById('qOptions');
+            opts.innerHTML = '';
+            const shuffledOpts = q.opts.map((o, i) => ({ text: o, orig: i })).sort(() => Math.random() - 0.5);
+            shuffledOpts.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option';
+                btn.textContent = opt.text;
+                btn.onclick = () => selectAnswer(opt.orig, q.ans, q.exp, shuffledOpts, opt.orig);
+                opts.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(chosen, correct, explanation, shuffledOpts, chosenOrig) {
+            if (quizAnswered) return;
+            quizAnswered = true;
+            const btns = document.querySelectorAll('.quiz-option');
+            const fb = document.getElementById('qFeedback');
+            btns.forEach((btn, i) => {
+                btn.disabled = true;
+                if (shuffledOpts[i].orig === correct) btn.classList.add('correct');
+                else if (shuffledOpts[i].orig === chosen && chosen !== correct) btn.classList.add('wrong');
+            });
+            if (chosen === correct) {
+                quizScore++;
+                fb.textContent = '✓ Correct! ' + explanation;
+                fb.className = 'quiz-feedback show correct';
+            } else {
+                fb.textContent = '✗ ' + explanation;
+                fb.className = 'quiz-feedback show wrong';
+            }
+            document.getElementById('qNext').classList.add('show');
+        }
+
+        function nextQuestion() {
+            quizIndex++;
+            if (quizIndex >= shuffledQuiz.length) {
+                showResult();
+            } else {
+                renderQuestion();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quizBar').style.width = '100%';
+            document.getElementById('quizCount').textContent = `${shuffledQuiz.length} / ${shuffledQuiz.length}`;
+            document.getElementById('quizScoreBadge').textContent = `Score: ${quizScore}`;
+            document.getElementById('qNum').style.display = 'none';
+            document.getElementById('qText').style.display = 'none';
+            document.getElementById('qOptions').style.display = 'none';
+            const fb = document.getElementById('qFeedback');
+            fb.classList.remove('show');
+            document.getElementById('qNext').classList.remove('show');
+            const pct = Math.round((quizScore / shuffledQuiz.length) * 100);
+            document.getElementById('resultScore').textContent = `${quizScore}/${shuffledQuiz.length}`;
+            const labels = ['Keep studying! 📖', 'Getting there! 💪', 'Good job! 👍', 'Great work! 🌟', 'Excellent! 🏆'];
+            document.getElementById('resultLabel').textContent = labels[Math.floor(pct / 25)] || 'Excellent! 🏆';
+            document.getElementById('quizResult').classList.add('show');
+        }
+
+        // Init
+        renderNicknames();
+        renderFlash();
+    </script>
+</body>
+
+</html>
