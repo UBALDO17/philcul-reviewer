@@ -232,6 +232,11 @@
       <div class="card-desc">Provinces & nicknames with full attraction details — everything in one table per region</div>
       <div class="card-cta">Open →</div>
     </div>
+      <div class="card-num">Free Notes</div>
+      <div class="card-title">Drawing & Notes Pad</div>
+      <div class="card-desc">Freehand drawing, text notes — saved automatically to your browser</div>
+      <div class="card-cta">Open →</div>
+    </div>
   </div>
 </div>
 
@@ -1057,45 +1062,449 @@
   </main>
 </div>
 
+<!-- DRAW OVERLAY: transparent canvas floats over everything -->
+<canvas id="ov-canvas" style="
+  position:fixed;top:0;left:0;
+  z-index:9000;display:none;touch-action:none;
+  pointer-events:none;
+"></canvas>
+
+<!-- FLOATING TOOLBAR -->
+<div id="draw-bar" style="
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  z-index:9002;
+  background:#fff;
+  border:1.5px solid #e4e4e0;
+  border-radius:60px;
+  box-shadow:0 6px 28px rgba(0,0,0,.14),0 1px 4px rgba(0,0,0,.06);
+  display:flex;align-items:center;gap:4px;
+  padding:6px 10px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+  max-width:calc(100vw - 24px);
+  overflow:hidden;
+">
+  <!-- Activate button -->
+  <button id="db-toggle" onclick="dbToggle()" title="Toggle annotation mode (D)"
+    style="width:34px;height:34px;border-radius:50%;border:1.5px solid #e4e4e0;background:#f6f6f4;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;">
+    ✏️
+  </button>
+
+  <!-- Tools row — hidden until activated -->
+  <div id="db-tools" style="display:none;align-items:center;gap:4px;flex-wrap:nowrap;">
+
+    <div class="db-sep"></div>
+
+    <!-- TOOL BUTTONS -->
+    <div style="display:flex;gap:3px;align-items:center;">
+      <!-- Pen -->
+      <button id="db-t-pen" class="db-tbtn db-tbtn-active" onclick="dbSetTool('pen')" title="Pen (1)">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11 2l3 3-8 8H3v-3L11 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      </button>
+      <!-- Highlighter -->
+      <button id="db-t-hl" class="db-tbtn" onclick="dbSetTool('highlight')" title="Highlighter (2)">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="7" width="10" height="5" rx="1" fill="currentColor" opacity=".35"/><path d="M5 7L8 2l3 5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="4" y1="14" x2="12" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <!-- Eraser -->
+      <button id="db-t-er" class="db-tbtn" onclick="dbSetTool('eraser')" title="Eraser (3)">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13h10M9 3l4 4-5 6H5L2 10l7-7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="db-sep"></div>
+
+    <!-- COLOR SWATCHES -->
+    <div style="display:flex;align-items:center;gap:3px;">
+      <div class="db-sw db-sw-active" data-c="#181816" style="background:#181816;" onclick="dbSetColor(this)" title="Black"></div>
+      <div class="db-sw" data-c="#e53e3e" style="background:#e53e3e;" onclick="dbSetColor(this)" title="Red"></div>
+      <div class="db-sw" data-c="#1d5bb5" style="background:#1d5bb5;" onclick="dbSetColor(this)" title="Blue"></div>
+      <div class="db-sw" data-c="#16a34a" style="background:#16a34a;" onclick="dbSetColor(this)" title="Green"></div>
+      <div class="db-sw" data-c="#d97706" style="background:#d97706;" onclick="dbSetColor(this)" title="Orange"></div>
+      <div class="db-sw" data-c="#6d28aa" style="background:#6d28aa;" onclick="dbSetColor(this)" title="Purple"></div>
+      <!-- Highlighter preset colors (shown only in highlight mode) -->
+      <div id="db-hl-colors" style="display:none;align-items:center;gap:3px;">
+        <div class="db-sw db-sw-active" data-c="#ffe234" style="background:#ffe234;" onclick="dbSetColor(this)" title="Yellow"></div>
+        <div class="db-sw" data-c="#4afe7a" style="background:#4afe7a;" onclick="dbSetColor(this)" title="Green"></div>
+        <div class="db-sw" data-c="#ff6fd8" style="background:#ff6fd8;" onclick="dbSetColor(this)" title="Pink"></div>
+        <div class="db-sw" data-c="#5bc4ff" style="background:#5bc4ff;" onclick="dbSetColor(this)" title="Cyan"></div>
+        <div class="db-sw" data-c="#ff9a3c" style="background:#ff9a3c;" onclick="dbSetColor(this)" title="Orange"></div>
+      </div>
+      <!-- Custom color -->
+      <div style="position:relative;width:22px;height:22px;flex-shrink:0;" title="Custom color">
+        <div id="db-custom-preview" style="width:22px;height:22px;border-radius:50%;border:2px dashed #bbb;background:#fff;pointer-events:none;"></div>
+        <input type="color" id="db-custom-input" value="#ff0080"
+          style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;border:none;padding:0;"
+          oninput="dbSetCustomColor(this.value)" onchange="dbSetCustomColor(this.value)">
+      </div>
+    </div>
+
+    <div class="db-sep"></div>
+
+    <!-- SIZE SLIDER -->
+    <input type="range" id="db-size" min="1" max="36" value="4" oninput="dbSetSize(this.value)"
+      style="-webkit-appearance:none;appearance:none;width:64px;height:4px;border-radius:2px;background:#e4e4e0;outline:none;cursor:pointer;flex-shrink:0;">
+    <div style="width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+      <div id="db-size-dot" style="border-radius:50%;background:#181816;width:4px;height:4px;transition:width .1s,height .1s;flex-shrink:0;"></div>
+    </div>
+
+    <div class="db-sep"></div>
+
+    <!-- UNDO / CLEAR -->
+    <button onclick="dbUndo()" class="db-tbtn" title="Undo (Ctrl+Z)">↩</button>
+    <button onclick="dbClear()" class="db-tbtn" id="db-clear-btn" title="Clear all" style="color:#b52b1d;">🗑</button>
+
+    <!-- STATUS -->
+    <span id="db-saved" style="font-size:10px;color:#888;font-family:'JetBrains Mono',monospace;min-width:46px;text-align:center;flex-shrink:0;"></span>
+  </div>
+</div>
+
+<style>
+  /* toolbar shared pieces */
+  .db-sep{width:1px;height:22px;background:#e4e4e0;margin:0 3px;flex-shrink:0;}
+  .db-tbtn{width:30px;height:30px;border-radius:7px;border:1.5px solid #e4e4e0;background:#f6f6f4;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;color:#444;transition:background .12s,border-color .12s,color .12s;flex-shrink:0;padding:0;}
+  .db-tbtn:hover{background:#efefeb;}
+  .db-tbtn-active{background:#edf3fc!important;border-color:#1d5bb5!important;color:#1d5bb5!important;}
+  .db-tbtn-hl-active{background:#fef9c3!important;border-color:#ca8a04!important;color:#92400e!important;}
+  .db-tbtn-er-active{background:#fdf0ee!important;border-color:#b52b1d!important;color:#b52b1d!important;}
+  .db-sw{width:22px;height:22px;border-radius:50%;border:2.5px solid transparent;cursor:pointer;flex-shrink:0;transition:transform .12s,border-color .12s;}
+  .db-sw:hover{transform:scale(1.2);}
+  .db-sw-active{border-color:#181816!important;box-shadow:0 0 0 1px #fff inset;}
+  #db-toggle.on{background:#edf3fc!important;border-color:#1d5bb5!important;}
+  #db-size::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:#1d5bb5;cursor:pointer;border:none;}
+  #db-size::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:#1d5bb5;cursor:pointer;border:none;}
+  /* cursor overrides when draw mode is active */
+  body.db-active-pen   #ov-canvas{cursor:crosshair!important;pointer-events:all!important;}
+  body.db-active-highlight #ov-canvas{cursor:text!important;pointer-events:all!important;}
+  body.db-active-eraser #ov-canvas{cursor:cell!important;pointer-events:all!important;}
+  body.db-active-pen   ,
+  body.db-active-highlight,
+  body.db-active-eraser {cursor:default;}
+</style>
+
 <script>
-  function showPanel(id){
-    ['launcher','panel-h3','panel-h4','panel-hc'].forEach(p=>{
-      const el=document.getElementById(p);if(el)el.style.display='none';
-    });
-    const panel=document.getElementById('panel-'+id);
-    if(panel){panel.style.display='block';window.scrollTo(0,0);}
+// ══ REVIEWER FUNCTIONS ══
+function showPanel(id){
+  ['launcher','panel-h3','panel-h4','panel-hc'].forEach(p=>{
+    const el=document.getElementById(p);if(el)el.style.display='none';
+  });
+  const panel=document.getElementById('panel-'+id);
+  if(panel){panel.style.display='block';window.scrollTo(0,0);}
+  if(dbActive) setTimeout(dbSyncPage, 80);
+}
+function showLauncher(){
+  ['panel-h3','panel-h4','panel-hc'].forEach(p=>{
+    const el=document.getElementById(p);if(el)el.style.display='none';
+  });
+  document.getElementById('launcher').style.display='flex';
+  window.scrollTo(0,0);
+  if(dbActive) setTimeout(dbSyncPage, 80);
+}
+function toggleCard(card){card.classList.toggle('collapsed'); if(dbActive) setTimeout(dbSyncPage,120);}
+function fg(group,btn,pid){
+  const panel=document.getElementById('panel-'+pid);
+  panel.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('a-all','a-luzon','a-visayas','a-mindanao'));
+  btn.classList.add('a-'+group);
+  panel.querySelectorAll('.rc').forEach(c=>c.classList.toggle('hidden',group!=='all'&&c.dataset.group!==group));
+  panel.querySelectorAll('.grp-header').forEach(h=>{
+    if(group==='all'){h.classList.remove('hidden');return;}
+    h.classList.toggle('hidden',h.dataset.grp!==group);
+  });
+  if(dbActive) setTimeout(dbSyncPage, 100);
+}
+function ds(q,pid){
+  q=q.trim().toLowerCase();
+  const panel=document.getElementById('panel-'+pid);
+  panel.querySelectorAll('.rc').forEach(c=>{
+    const hay=(c.dataset.search||'')+' '+c.innerText.toLowerCase();
+    const hide=q.length>0&&!hay.includes(q);
+    c.classList.toggle('hidden',hide);
+    if(!hide&&q.length>0)c.classList.remove('collapsed');
+  });
+  if(dbActive) setTimeout(dbSyncPage, 150);
+}
+function ea(pid){document.getElementById('panel-'+pid).querySelectorAll('.rc:not(.hidden)').forEach(c=>c.classList.remove('collapsed')); if(dbActive) setTimeout(dbSyncPage,200);}
+function ca(pid){document.getElementById('panel-'+pid).querySelectorAll('.rc:not(.hidden)').forEach(c=>c.classList.add('collapsed')); if(dbActive) setTimeout(dbSyncPage,200);}
+document.addEventListener('click',e=>{if(e.target.classList.contains('kw'))e.target.classList.toggle('on');});
+
+// ══ OVERLAY ANNOTATION ══
+const OV_KEY = 'th2205_overlay_v2';
+const ovc    = document.getElementById('ov-canvas');
+const ovCtx  = ovc.getContext('2d');
+
+let dbActive  = false;
+let dbTool    = 'pen';       // 'pen' | 'highlight' | 'eraser'
+let dbColor   = '#181816';
+let dbHlColor = '#ffe234';   // separate highlight color
+let dbSize    = 4;
+let dbDrawing = false;
+let dbLX = 0, dbLY = 0;
+let dbUndoStack = [];
+let dbSaveTimer = null;
+let dbLoaded  = false;
+
+// ── Canvas sizing ──
+function dbSyncPage(){
+  if(dbDrawing) return;
+  const pw = Math.max(document.documentElement.scrollWidth, window.innerWidth);
+  const ph = Math.max(document.documentElement.scrollHeight, window.innerHeight);
+  if(ovc.width === pw && ovc.height === ph) return; // no change needed
+  // snapshot existing pixels
+  let snap = null;
+  if(ovc.width > 0 && ovc.height > 0){
+    snap = ovCtx.getImageData(0, 0, Math.min(ovc.width, pw), Math.min(ovc.height, ph));
   }
-  function showLauncher(){
-    ['panel-h3','panel-h4','panel-hc'].forEach(p=>{
-      const el=document.getElementById(p);if(el)el.style.display='none';
-    });
-    document.getElementById('launcher').style.display='flex';
-    window.scrollTo(0,0);
+  ovc.width  = pw;
+  ovc.height = ph;
+  ovc.style.width  = pw + 'px';
+  ovc.style.height = ph + 'px';
+  if(snap) ovCtx.putImageData(snap, 0, 0);
+}
+
+// ── Persistence ──
+function dbLoad(){
+  try{
+    const saved = localStorage.getItem(OV_KEY);
+    if(!saved){ dbPushUndo(); return; }
+    const img = new Image();
+    img.onload = ()=>{ dbSyncPage(); ovCtx.drawImage(img,0,0); dbPushUndo(); };
+    img.src = saved;
+  }catch(e){ dbPushUndo(); }
+}
+
+function dbSave(){
+  clearTimeout(dbSaveTimer);
+  dbSaveTimer = setTimeout(()=>{
+    try{
+      const data = ovc.toDataURL('image/png');
+      localStorage.setItem(OV_KEY, data);
+      const el = document.getElementById('db-saved');
+      if(el){ el.textContent='Saved ✓'; setTimeout(()=>el.textContent='', 1500); }
+    }catch(e){}
+  }, 500);
+}
+
+// ── Toggle activation ──
+function dbToggle(){
+  dbActive = !dbActive;
+  const btn   = document.getElementById('db-toggle');
+  const tools = document.getElementById('db-tools');
+  if(dbActive){
+    dbSyncPage();
+    ovc.style.display = 'block';
+    tools.style.display = 'flex';
+    btn.classList.add('on');
+    dbApplyCursor();
+    if(!dbLoaded){ dbLoaded=true; dbLoad(); } else { dbPushUndo(); }
+  } else {
+    ovc.style.display = 'none';
+    ovc.style.pointerEvents = 'none';
+    tools.style.display = 'none';
+    btn.classList.remove('on');
+    document.body.classList.remove('db-active-pen','db-active-highlight','db-active-eraser');
   }
-  function toggleCard(card){card.classList.toggle('collapsed');}
-  function fg(group,btn,pid){
-    const panel=document.getElementById('panel-'+pid);
-    panel.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('a-all','a-luzon','a-visayas','a-mindanao'));
-    btn.classList.add('a-'+group);
-    panel.querySelectorAll('.rc').forEach(c=>c.classList.toggle('hidden',group!=='all'&&c.dataset.group!==group));
-    panel.querySelectorAll('.grp-header').forEach(h=>{
-      if(group==='all'){h.classList.remove('hidden');return;}
-      h.classList.toggle('hidden',h.dataset.grp!==group);
-    });
+}
+
+function dbApplyCursor(){
+  document.body.classList.remove('db-active-pen','db-active-highlight','db-active-eraser');
+  if(!dbActive) return;
+  const map = {pen:'db-active-pen', highlight:'db-active-highlight', eraser:'db-active-eraser'};
+  document.body.classList.add(map[dbTool]);
+  ovc.style.pointerEvents = 'all';
+}
+
+// ── Tool switching ──
+function dbSetTool(t){
+  dbTool = t;
+  // reset all button states
+  document.getElementById('db-t-pen').className = 'db-tbtn' + (t==='pen'?' db-tbtn-active':'');
+  document.getElementById('db-t-hl').className  = 'db-tbtn' + (t==='highlight'?' db-tbtn-hl-active':'');
+  document.getElementById('db-t-er').className  = 'db-tbtn' + (t==='eraser'?' db-tbtn-er-active':'');
+
+  // show correct color row
+  const penColors = document.getElementById('db-colors')?.querySelectorAll('.db-sw') ?? [];
+  const hlWrap    = document.getElementById('db-hl-colors');
+  const penWrap   = document.getElementById('db-pen-colors');
+
+  // toggle highlight-only swatches
+  if(hlWrap) hlWrap.style.display = t==='highlight' ? 'flex' : 'none';
+
+  // update size slider range for highlight
+  const slider = document.getElementById('db-size');
+  if(t==='highlight'){
+    slider.min='8'; slider.max='48';
+    if(parseInt(slider.value)<8) { slider.value='16'; dbSize=16; }
+    dbColor = dbHlColor;
+    // activate first hl swatch
+    document.querySelectorAll('#db-hl-colors .db-sw').forEach((s,i)=>s.classList.toggle('db-sw-active',i===0));
+    document.querySelectorAll('#db-pen-swatches .db-sw').forEach(s=>s.classList.remove('db-sw-active'));
+  } else {
+    slider.min='1'; slider.max='36';
+    if(parseInt(slider.value)>36) { slider.value='4'; dbSize=4; }
+    if(t!=='eraser') dbColor = '#181816';
+    document.querySelectorAll('#db-pen-swatches .db-sw').forEach((s,i)=>s.classList.toggle('db-sw-active',i===0));
+    document.querySelectorAll('#db-hl-colors .db-sw').forEach(s=>s.classList.remove('db-sw-active'));
   }
-  function ds(q,pid){
-    q=q.trim().toLowerCase();
-    const panel=document.getElementById('panel-'+pid);
-    panel.querySelectorAll('.rc').forEach(c=>{
-      const hay=(c.dataset.search||'')+' '+c.innerText.toLowerCase();
-      const hide=q.length>0&&!hay.includes(q);
-      c.classList.toggle('hidden',hide);
-      if(!hide&&q.length>0)c.classList.remove('collapsed');
-    });
+  dbUpdateSizeDot();
+  dbApplyCursor();
+}
+
+function dbSetColor(el){
+  const c = el.dataset.c;
+  if(dbTool==='highlight') dbHlColor = c;
+  dbColor = c;
+  // deactivate all swatches in both groups, activate clicked
+  document.querySelectorAll('.db-sw').forEach(s=>s.classList.remove('db-sw-active'));
+  el.classList.add('db-sw-active');
+  document.getElementById('db-custom-preview').style.background='#fff';
+  if(dbTool==='eraser') dbSetTool('pen');
+}
+
+function dbSetCustomColor(val){
+  dbColor = val;
+  if(dbTool==='highlight') dbHlColor = val;
+  document.getElementById('db-custom-preview').style.background = val;
+  document.querySelectorAll('.db-sw').forEach(s=>s.classList.remove('db-sw-active'));
+  if(dbTool==='eraser') dbSetTool('pen');
+}
+
+function dbSetSize(val){
+  dbSize = parseInt(val);
+  dbUpdateSizeDot();
+}
+function dbUpdateSizeDot(){
+  const dot = document.getElementById('db-size-dot');
+  const v = Math.min(dbSize, 22);
+  dot.style.width  = v+'px';
+  dot.style.height = v+'px';
+}
+
+// ── Undo ──
+function dbPushUndo(){
+  if(ovc.width===0||ovc.height===0) return;
+  const snap = ovCtx.getImageData(0,0,ovc.width,ovc.height);
+  dbUndoStack.push(snap);
+  if(dbUndoStack.length>50) dbUndoStack.shift();
+}
+function dbUndo(){
+  if(dbUndoStack.length<2) return;
+  dbUndoStack.pop();
+  ovCtx.putImageData(dbUndoStack[dbUndoStack.length-1],0,0);
+  dbSave();
+}
+
+function dbClear(){
+  if(!confirm('Clear all annotations?')) return;
+  dbPushUndo();
+  ovCtx.clearRect(0,0,ovc.width,ovc.height);
+  try{ localStorage.removeItem(OV_KEY); }catch(e){}
+  const el=document.getElementById('db-saved');
+  if(el){el.textContent='Cleared';setTimeout(()=>el.textContent='',1200);}
+}
+
+// ── Drawing ──
+function dbGetXY(e){
+  const src = e.touches ? e.touches[0] : e;
+  return { x: src.clientX + window.scrollX, y: src.clientY + window.scrollY };
+}
+
+function dbStrokeSettings(){
+  if(dbTool==='highlight'){
+    ovCtx.globalCompositeOperation = 'source-over';
+    ovCtx.globalAlpha   = 0.35;
+    ovCtx.strokeStyle   = dbHlColor;
+    ovCtx.lineWidth     = dbSize;
+    ovCtx.lineCap       = 'square';   // flat ends = real highlighter feel
+    ovCtx.lineJoin      = 'miter';
+  } else if(dbTool==='eraser'){
+    ovCtx.globalCompositeOperation = 'destination-out';
+    ovCtx.strokeStyle   = 'rgba(0,0,0,1)';
+    ovCtx.lineWidth     = dbSize * 3;
+    ovCtx.lineCap       = 'round';
+    ovCtx.lineJoin      = 'round';
+    ovCtx.globalAlpha   = 1;
+  } else {
+    ovCtx.globalCompositeOperation = 'source-over';
+    ovCtx.globalAlpha   = 1;
+    ovCtx.strokeStyle   = dbColor;
+    ovCtx.lineWidth     = dbSize;
+    ovCtx.lineCap       = 'round';
+    ovCtx.lineJoin      = 'round';
   }
-  function ea(pid){document.getElementById('panel-'+pid).querySelectorAll('.rc:not(.hidden)').forEach(c=>c.classList.remove('collapsed'));}
-  function ca(pid){document.getElementById('panel-'+pid).querySelectorAll('.rc:not(.hidden)').forEach(c=>c.classList.add('collapsed'));}
-  document.addEventListener('click',e=>{if(e.target.classList.contains('kw'))e.target.classList.toggle('on');});
+}
+
+function dbPointerDown(e){
+  if(!dbActive) return;
+  e.preventDefault();
+  dbDrawing = true;
+  const {x,y} = dbGetXY(e);
+  dbLX=x; dbLY=y;
+  dbPushUndo();
+  // dot on tap
+  ovCtx.save();
+  dbStrokeSettings();
+  ovCtx.beginPath();
+  if(dbTool==='highlight'){
+    ovCtx.fillStyle   = dbHlColor;
+    ovCtx.globalAlpha = 0.35;
+    ovCtx.globalCompositeOperation='source-over';
+    ovCtx.fillRect(x - dbSize/2, y - dbSize/2, dbSize, dbSize);
+  } else if(dbTool==='eraser'){
+    ovCtx.arc(x,y,dbSize*1.5,0,Math.PI*2);
+    ovCtx.fill();
+  } else {
+    ovCtx.arc(x,y,dbSize/2,0,Math.PI*2);
+    ovCtx.fillStyle=dbColor;
+    ovCtx.fill();
+  }
+  ovCtx.restore();
+}
+
+function dbPointerMove(e){
+  if(!dbActive||!dbDrawing) return;
+  e.preventDefault();
+  const {x,y} = dbGetXY(e);
+  ovCtx.save();
+  dbStrokeSettings();
+  ovCtx.beginPath();
+  ovCtx.moveTo(dbLX,dbLY);
+  ovCtx.lineTo(x,y);
+  ovCtx.stroke();
+  ovCtx.restore();
+  dbLX=x; dbLY=y;
+}
+
+function dbPointerUp(e){
+  if(!dbDrawing) return;
+  dbDrawing=false;
+  dbSave();
+}
+
+ovc.addEventListener('mousedown',  dbPointerDown);
+ovc.addEventListener('mousemove',  dbPointerMove);
+ovc.addEventListener('mouseup',    dbPointerUp);
+ovc.addEventListener('mouseleave', dbPointerUp);
+ovc.addEventListener('touchstart', dbPointerDown, {passive:false});
+ovc.addEventListener('touchmove',  dbPointerMove, {passive:false});
+ovc.addEventListener('touchend',   dbPointerUp);
+
+// ── Keyboard shortcuts ──
+document.addEventListener('keydown', e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
+  if(e.key==='d'||e.key==='D'){ dbToggle(); return; }
+  if(e.key==='1') dbSetTool('pen');
+  if(e.key==='2') dbSetTool('highlight');
+  if(e.key==='3') dbSetTool('eraser');
+  if((e.ctrlKey||e.metaKey)&&e.key==='z'){ e.preventDefault(); dbUndo(); }
+});
+
+window.addEventListener('resize', ()=>{ if(dbActive) setTimeout(dbSyncPage, 80); });
+
+// wrap the pen-only swatches in an id so we can target them
+document.addEventListener('DOMContentLoaded',()=>{
+  const dc = document.getElementById('db-colors');
+  if(dc){ dc.id='db-pen-swatches'; }
+});
 </script>
 </body>
 </html>
